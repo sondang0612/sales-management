@@ -10,7 +10,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-slate-500">
+    <div className="flex items-center justify-center">
       <LoginForm />
     </div>
   );

@@ -11,6 +11,7 @@ const useSalonReportAnalysisByName = ({ name }) => {
   return useQuery({
     queryKey: [queryKeys.useSalonReportAnalysisByName, { name }],
     queryFn: () => getSalonReportAnalysisByName(name),
+    enabled: !!name,
   });
 };
 

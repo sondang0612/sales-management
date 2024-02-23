@@ -8,15 +8,25 @@ const salonReportSchema = new Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      enum: [
-        "no-account",
-        "re-take-care-no-account",
-        "re-take-care-have-account",
-      ],
-      required: true,
-    },
+    categories: [
+      {
+        type: {
+          type: String,
+          enum: [
+            "no-account",
+            "re-take-care-no-account",
+            "re-take-care-have-account",
+          ],
+          required: true,
+        },
+        contents: [
+          {
+            text: String,
+            createdDate: { type: Date, default: Date.now },
+          },
+        ],
+      },
+    ],
     address: {
       type: String,
       required: true,
@@ -24,14 +34,6 @@ const salonReportSchema = new Schema(
     phone: {
       type: String,
       required: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    active: {
-      type: Boolean,
-      default: true,
     },
     user: {
       type: mongoose.Schema.ObjectId,
@@ -42,11 +44,6 @@ const salonReportSchema = new Schema(
   { timestamps: true }
 );
 
-salonReportSchema.pre(/^findOne/, function (next) {
-  this.find({ active: { $ne: false } });
-
-  next();
-});
 const SalonReport =
   models.SalonReport || mongoose.model("SalonReport", salonReportSchema);
 

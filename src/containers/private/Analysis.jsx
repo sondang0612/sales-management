@@ -27,11 +27,11 @@ const Analysis = ({ data }) => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
                   >
-                    {item?._id?.name}
+                    {item?.name}
                   </th>
-                  <Salon12Months name={item?._id?.name} />
+                  <Salon12Months name={item?.name} />
                 </tr>
               ))}
           </tbody>

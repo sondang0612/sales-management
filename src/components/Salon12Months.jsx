@@ -4,20 +4,11 @@ import Status from "./Status";
 
 const Salon12Months = ({ name }) => {
   const { data: analysis } = useSalonReportAnalysisByName({ name });
-  const getAnalysisByMonth = (month) => {
-    return analysis
-      ?.map((item) =>
-        item._id.month === month
-          ? { category: item?._id?.category, count: item.count }
-          : undefined
-      )
-      .filter(Boolean);
-  };
+  console.log(analysis);
   return (
     <>
       {[...Array(12).keys()].map((_, index) => {
-        const result = getAnalysisByMonth(index + 1);
-        if (!result) return <td className="px-6 py-4" key={index} />;
+        if (!analysis) return <td className="px-6 py-4" key={index} />;
         return (
           <td
             className={`px-6 py-4 text-center ${
@@ -25,7 +16,7 @@ const Salon12Months = ({ name }) => {
             }`}
             key={index}
           >
-            {result?.map((item) => (
+            {analysis?.map((item) => (
               <Status
                 number={item.count}
                 category={item.category}
