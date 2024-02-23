@@ -2,15 +2,18 @@ import InputForm from "@/src/components/InputForm";
 import useLogin from "@/src/react-query/useLogin";
 import React from "react";
 import Button from "./Button";
+import useRegister from "@/src/react-query/useRegister";
 const LoginForm = () => {
   const [isRegister, setIsRegister] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [username, setUsername] = React.useState("");
   const { mutate: login } = useLogin();
+  const { mutate: register } = useRegister();
+
   React.useEffect(() => {
-    setEmail("");
+    setPhone("");
     setPassword("");
     setConfirmPassword("");
     setConfirmPassword("");
@@ -18,10 +21,12 @@ const LoginForm = () => {
   }, [isRegister]);
 
   const onSubmit = async () => {
-    const payload = { email, password, username, confirmPassword };
+    const payload = { phone, password, username, confirmPassword };
     try {
       if (!isRegister) {
-        login({ email, password });
+        login({ phone, password });
+      } else {
+        register(payload);
       }
     } catch (error) {
       console.log(error);
@@ -43,10 +48,10 @@ const LoginForm = () => {
           />
         )}
         <InputForm
-          onChange={(e) => setEmail(e.target.value)}
-          fieldName="email"
-          value={email}
-          placeholder="Email"
+          onChange={(e) => setPhone(e.target.value)}
+          fieldName="phone"
+          value={phone}
+          placeholder="SĐT"
         />
         <InputForm
           onChange={(e) => setPassword(e.target.value)}
@@ -65,7 +70,7 @@ const LoginForm = () => {
           />
         )}
         <Button
-          title="Đăng nhập"
+          title={isRegister ? "Đăng ký" : "Đăng nhập"}
           textColor="text-white"
           bgColor="bg-[#493EFF]"
           hover="hover:bg-[rgba(73,62,255,0.9)]"

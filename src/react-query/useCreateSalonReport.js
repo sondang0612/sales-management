@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance";
 const createSalon = async (form) => {
@@ -7,12 +7,14 @@ const createSalon = async (form) => {
 };
 
 const useCreateSalonReport = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (form) => createSalon(form),
     onError: (error) => {
       toast.error(error?.response?.data?.msg || "Lỗi từ server");
     },
     onSuccess: async (data) => {
+      queryClient.invalidateQueries("useMySalons");
       toast.success(data?.msg);
     },
   });

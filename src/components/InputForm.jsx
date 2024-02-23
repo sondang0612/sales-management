@@ -5,7 +5,7 @@ const InputForm = (props) => {
   const { labelName, placeholder, type, isArea, fieldName, value, onChange } =
     props;
   return (
-    <div>
+    <div className="w-full">
       {labelName && (
         <label className="block mb-2 text-[10px] md:text-sm font-medium text-gray-900">
           {labelName}

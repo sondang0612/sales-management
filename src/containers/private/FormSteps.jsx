@@ -76,8 +76,8 @@ const FormSteps = () => {
 
   return (
     <div className="bg-white rounded-md w-full md:w-[60%] p-5 shadow-md">
-      <div className="flex flex-row">
-        <div className="bg-primary w-[40%] rounded-md flex flex-col py-5 md:py-8 gap-1">
+      <div className="flex flex-row md:gap-[40px] gap-[10px]">
+        <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1 w-[20%]">
           {formData.map((_, index) => (
             <div
               onClick={() => goToSpecificStep(index)}
@@ -116,7 +116,7 @@ const FormSteps = () => {
             </div>
           )}
         </div>
-        <div className="bg-white rounded-md w-full p-8 flex flex-col gap-5">
+        <div className="bg-white rounded-md w-[80%] flex flex-col gap-5">
           <InputForm
             labelName="Tên Salon"
             onChange={onChangeInput}
