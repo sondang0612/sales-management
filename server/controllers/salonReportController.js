@@ -13,13 +13,12 @@ const create = catchAsync(async (req, res) => {
     if (formData[i].category === "no-account") {
       const salon = await SalonReport.findOne({
         name: formData[i].name,
-        category: formData[i].category,
         phone: formData[i].phone,
+        address: formData[i].address,
       });
       if (salon) {
         error.msg = `${formData[i].name} đã tồn tại, vui lòng chọn chăm sóc lại hoặc ra đơn`;
         break;
-      } else {
       }
     }
   }
@@ -46,8 +45,12 @@ const getMySalons = catchAsync(async (req, res) => {
         _id: {
           name: "$name",
         },
+        count: {
+          $sum: 1,
+        },
       },
     },
+    { $sort: { count: -1, "_id.name": 1 } },
     {
       $facet: {
         data: [{ $skip: skip }, { $limit: limit }],
@@ -56,7 +59,12 @@ const getMySalons = catchAsync(async (req, res) => {
     },
   ]);
 
-  res.status(200).json({ data: salons });
+  res.status(200).json({
+    data: {
+      data: salons[0].data,
+      totalPages: Math.ceil(salons[0].pagination[0].total / limit),
+    },
+  });
 });
 
 const getSalonReportAnalysisByName = catchAsync(async (req, res) => {
