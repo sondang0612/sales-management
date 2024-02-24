@@ -78,9 +78,9 @@ const FormSteps = () => {
 
   return (
     <div className="flex justify-center mt-5">
-      <div className="bg-white md:w-[60%] w-full rounded-md shadow-md py-5 px-10">
+      <div className="bg-white md:w-[60%] w-full rounded-md shadow-md p-2">
         <div className="flex flex-row md:gap-[40px] gap-[10px]">
-          <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1 w-[20%]">
+          <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1">
             {formData.map((_, index) => (
               <div
                 onClick={() => goToSpecificStep(index)}
