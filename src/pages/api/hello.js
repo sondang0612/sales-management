@@ -1,7 +1,3 @@
-import base from "@/src/utils/base";
-
-const handler = base().get((req, res) => {
-  res.json({ message: "Hello" });
-});
-
-export default handler;
+export default function handler(req, res) {
+  res.status(200).json({ message: "Hello from Next.js!" });
+}
