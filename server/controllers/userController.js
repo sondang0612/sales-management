@@ -20,7 +20,7 @@ const login = catchAsync(async (req, res) => {
   }
   const token = signToken(user._id);
 
-  return res.status(200).json({ msg: "Đăng nhập thành công", token: 123 });
+  return res.status(200).json({ msg: "Đăng nhập thành công", token });
 });
 
 const getProfile = catchAsync(async (req, res) => {
