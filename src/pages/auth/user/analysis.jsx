@@ -9,7 +9,7 @@ const AnalysisPage = () => {
   const { data: mySalons } = useMySalons({ page, size: 5 });
   return (
     <div>
-      <Analysis data={mySalons} />
+      <Analysis data={mySalons?.salons} />
       <div className="flex items-center justify-center flex-col mt-[10px]">
         <span className="text-white">
           {page + 1}/{mySalons?.totalPages}

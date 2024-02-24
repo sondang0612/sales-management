@@ -4,11 +4,27 @@ import Status from "./Status";
 
 const Salon12Months = ({ name }) => {
   const { data: analysis } = useSalonReportAnalysisByName({ name });
-  console.log(analysis);
+
+  const formatDataByMonth = (month) => {
+    return analysis
+      ?.map((item) =>
+        item._id.month === month
+          ? { count: item.count, category: item._id.category }
+          : undefined
+      )
+      .filter(Boolean);
+  };
+
   return (
     <>
       {[...Array(12).keys()].map((_, index) => {
-        if (!analysis) return <td className="px-6 py-4" key={index} />;
+        if (!analysis)
+          return (
+            <td
+              className={`px-6 py-4 ${index % 2 === 0 ? "bg-blue-200" : ""}`}
+              key={index}
+            />
+          );
         return (
           <td
             className={`px-6 py-4 text-center ${
@@ -16,7 +32,7 @@ const Salon12Months = ({ name }) => {
             }`}
             key={index}
           >
-            {analysis?.map((item) => (
+            {formatDataByMonth(index + 1)?.map((item) => (
               <Status
                 number={item.count}
                 category={item.category}

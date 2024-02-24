@@ -36,4 +36,14 @@ const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-export { protect };
+const restrictAdmin = catchAsync(async (req, res, next) => {
+  const user = req.user;
+
+  if (user.role !== "ADMIN") {
+    return res.status(400).json({ msg: "Không có quyền xem!!!" });
+  }
+
+  next();
+});
+
+export { protect, restrictAdmin };

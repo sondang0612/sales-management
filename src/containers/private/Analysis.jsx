@@ -20,7 +20,7 @@ const Analysis = ({ data }) => {
           </thead>
           <tbody>
             {data &&
-              data?.data?.map((item, index) => (
+              data?.map((item, index) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   key={index}

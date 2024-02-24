@@ -7,12 +7,14 @@ import Button from "../public/Button";
 import plusLogo from "@/public/plus.svg";
 import deleteLogo from "@/public/delete.svg";
 import useCreateSalonReport from "@/src/react-query/useCreateSalonReport";
+import useMySalonReports from "@/src/react-query/useMySalonReports";
+import useMySalons from "@/src/react-query/useMySalons";
 
 const initialFormData = {
   name: "",
   address: "",
   content: "",
-  category: undefined,
+  category: "no-account",
   phone: "",
 };
 
@@ -117,15 +119,9 @@ const FormSteps = () => {
           )}
         </div>
         <div className="bg-white rounded-md w-[80%] flex flex-col gap-5">
-          <InputForm
-            labelName="Tên Salon"
-            onChange={onChangeInput}
-            fieldName="name"
-            value={formData[step]?.name}
-          />
           <select
             className={`border border-gray-500  text-sm rounded-lg block p-1.5 text-[14px]`}
-            value={formData[step]?.category || "none"}
+            value={formData[step]?.category || "no-account"}
             onChange={(e) =>
               setFormData((prev) => {
                 return prev.map((item, index) =>
@@ -134,7 +130,6 @@ const FormSteps = () => {
               })
             }
           >
-            <option value="none">Chọn Loại</option>
             <option value="no-account">
               Salon mới tiếp cận (chưa có account)
             </option>
@@ -145,6 +140,12 @@ const FormSteps = () => {
               Chăm sóc đã có account
             </option>
           </select>
+          <InputForm
+            labelName="Tên Salon"
+            onChange={onChangeInput}
+            fieldName="name"
+            value={formData[step]?.name}
+          />
           <InputForm
             labelName="Địa chỉ"
             onChange={onChangeInput}

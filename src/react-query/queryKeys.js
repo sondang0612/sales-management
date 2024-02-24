@@ -3,6 +3,7 @@ const queryKeys = {
   useMySalonReports: "useMySalonReports",
   useMySalons: "useMySalons",
   useSalonReportAnalysisByName: "useSalonReportAnalysisByName",
+  useUsers: "useUsers",
 };
 
 export default queryKeys;

@@ -1,47 +1,13 @@
 import { catchAsync } from "@/src/utils/catchAsync";
 import SalonReport from "../models/SalonReport";
-import mongoose from "mongoose";
 
 const create = catchAsync(async (req, res) => {
   const user = req.user;
 
   const { formData } = req.body;
-  for (let i = 0; i < formData.length; i++) {
-    const { name, phone, address, content, category } = formData[i];
-    const salon = await SalonReport.findOne({
-      name,
-      phone,
-      address,
-      user: user._id,
-    });
 
-    if (!salon) {
-      await SalonReport.create({
-        name,
-        phone,
-        address,
-        user,
-        categories: [{ type: "no-account", contents: [{ text: content }] }],
-      });
-    } else {
-      const isExisted =
-        salon.categories.filter((item) => item.type === category).length !== 0;
-      if (!isExisted) {
-        salon.categories.push({
-          type: category,
-          contents: [{ text: content }],
-        });
-      } else {
-        salon.categories = salon.categories.map((item) =>
-          item.type === category
-            ? { ...item, contents: [...item.contents, { text: content }] }
-            : item
-        );
-      }
-      await salon.save();
-    }
-  }
-
+  const result = formData.map((item) => ({ ...item, user: user._id }));
+  SalonReport.insertMany(result);
   res.status(200).json({ msg: "Đã lưu" });
 });
 
@@ -51,22 +17,37 @@ const getMySalons = catchAsync(async (req, res) => {
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
 
-  const result = await SalonReport.aggregate([
+  const salons = await SalonReport.aggregate([
     { $match: { user: user._id } },
-    { $project: { name: 1 } },
+    {
+      $group: {
+        _id: {
+          name: "$name",
+          phone: "$phone",
+          address: "$address",
+        },
+      },
+    },
+    { $sort: { count: -1, "_id.name": 1 } },
     {
       $facet: {
-        pagination: [{ $count: "totalPages" }],
         data: [{ $skip: skip }, { $limit: limit }],
+        pagination: [{ $count: "total" }],
       },
     },
   ]);
-  const { pagination, data } = result[0];
-  data.push(...Array.from(Array(Math.abs(limit - data.length)), (_) => null));
+
+  const { data, pagination } = salons[0];
+
+  const dataResult = data?.map((item) => item._id);
+  dataResult.push(
+    ...Array.from(Array(Math.abs(limit - dataResult.length)), (_) => null)
+  );
+
   res.status(200).json({
     data: {
-      data,
-      totalPages: Math.ceil(pagination[0].totalPages / limit),
+      salons: dataResult,
+      totalPages: Math.ceil(pagination[0].total / limit),
     },
   });
 });
@@ -75,24 +56,23 @@ const getSalonReportAnalysisByName = catchAsync(async (req, res) => {
   const user = req.user;
   const { name } = req.query;
 
-  const analysis = await SalonReport.aggregate([
+  const salons = await SalonReport.aggregate([
     { $match: { user: user._id, name } },
-    { $unwind: "$categories" },
     {
-      $project: {
-        category: "$categories.type",
+      $group: {
+        _id: {
+          month: { $month: "$createdAt" },
+          name: "$name",
+          category: "$category",
+        },
         count: {
-          $cond: {
-            if: { $isArray: "$categories.contents" },
-            then: { $size: "$categories.contents" },
-            else: "NA",
-          },
+          $sum: 1,
         },
       },
     },
   ]);
-  console.log(analysis);
-  res.status(200).json({ data: analysis });
+
+  res.status(200).json({ data: salons });
 });
 
 export { create, getMySalons, getSalonReportAnalysisByName };

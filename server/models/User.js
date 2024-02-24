@@ -6,9 +6,8 @@ const userSchema = new Schema(
   {
     phone: {
       type: String,
-      minLength: [11, "no should have minimum 10 digits"],
-      maxLength: [11, "no should have maximum 10 digits"],
-      match: [/\d{11}/, "no should only have digits"],
+      minLength: [9, "no should have minimum 9 digits"],
+      maxLength: [11, "no should have maximum 11 digits"],
     },
     password: {
       type: String,
