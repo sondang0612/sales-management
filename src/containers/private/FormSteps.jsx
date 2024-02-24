@@ -77,8 +77,9 @@ const FormSteps = () => {
   );
 
   return (
-    <div className="bg-white rounded-md w-full md:w-[60%] p-5 shadow-md">
-      <div className="flex flex-row md:gap-[40px] gap-[10px]">
+    <div className="bg-white rounded-md w-full h-full p-5 shadow-md">
+      <h3 className="text-[20px] font-bold text-center">Nhập Form Báo cáo</h3>
+      <div className="flex flex-row md:gap-[40px] gap-[10px] mt-[20px]">
         <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1 w-[20%]">
           {formData.map((_, index) => (
             <div
@@ -120,7 +121,7 @@ const FormSteps = () => {
         </div>
         <div className="bg-white rounded-md w-[80%] flex flex-col gap-5">
           <select
-            className={`border border-gray-500  text-sm rounded-lg block p-1.5 text-[14px]`}
+            className={`border border-gray-500 w-[100%] text-sm rounded-lg block p-1.5 text-[14px]`}
             value={formData[step]?.category || "no-account"}
             onChange={(e) =>
               setFormData((prev) => {

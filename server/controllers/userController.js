@@ -1,6 +1,7 @@
 import { catchAsync } from "@/src/utils/catchAsync";
 import User from "../models/User";
 import jwt from "jsonwebtoken";
+import SalonReport from "../models/SalonReport";
 export const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "123", {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -51,16 +52,36 @@ const register = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
-  const { page = 0, size = 5 } = req.query;
+  const { page = 0, size = 5, sortBy } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
+  let sort = {};
 
-  const users = await User.find({ role: "USER" })
-    .sort("-createdDate")
-    .skip(skip)
-    .limit(limit);
-  console.log(users);
-  return res.status(200).json({ msg: "Danh sách Sales", data: users });
+  if (sortBy === "countOrders") {
+    sort = { countOrders: -1 };
+  } else {
+    sort = { createdAt: -1 };
+  }
+
+  let analysis = await User.aggregate([
+    { $match: { role: "USER" } },
+    { $sort: sort },
+    {
+      $facet: {
+        users: [{ $skip: skip }, { $limit: limit }],
+        pagination: [{ $count: "total" }],
+      },
+    },
+  ]);
+
+  const { users, pagination } = analysis[0];
+  return res.status(200).json({
+    msg: "Danh sách User",
+    data: {
+      users,
+      total: pagination[0].total,
+    },
+  });
 });
 
 export { login, getProfile, register, getUsers };

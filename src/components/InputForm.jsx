@@ -15,7 +15,7 @@ const InputForm = (props) => {
         <textarea
           className={inputClassName}
           placeholder={placeholder || `Hãy nhập ${labelName}`}
-          style={{ height: 100 }}
+          style={{ height: 200 }}
           onChange={(e) => onChange(e, fieldName)}
           value={value}
         />

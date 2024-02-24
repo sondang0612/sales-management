@@ -28,6 +28,10 @@ const userSchema = new Schema(
       default: true,
       select: false,
     },
+    countOrders: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

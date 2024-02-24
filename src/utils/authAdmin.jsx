@@ -1,12 +1,6 @@
-import React from "react";
-import Navigate from "../components/Navigate";
-import { useRouter } from "next/navigation";
-import useProfile from "../react-query/useProfile";
-import toast from "react-hot-toast";
-import Image from "next/image";
-import plusLogo from "@/public/plus-white.svg";
 import { useQueryClient } from "@tanstack/react-query";
-import Header from "../containers/private/admin/Header";
+import { useRouter } from "next/navigation";
+import React from "react";
 import Sidebar from "../containers/private/admin/Sidebar";
 
 const authAdmin = (Component) => {

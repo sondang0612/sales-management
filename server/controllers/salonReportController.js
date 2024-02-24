@@ -1,10 +1,21 @@
 import { catchAsync } from "@/src/utils/catchAsync";
 import SalonReport from "../models/SalonReport";
+import User from "../models/User";
 
 const create = catchAsync(async (req, res) => {
   const user = req.user;
 
   const { formData } = req.body;
+
+  const countOrders =
+    formData.filter((item) => item.category === "re-take-care-have-account")
+      .length || 0;
+
+  if (countOrders !== 0) {
+    await User.findByIdAndUpdate(user._id, {
+      countOrders: user.countOrders + countOrders,
+    });
+  }
 
   const result = formData.map((item) => ({ ...item, user: user._id }));
   SalonReport.insertMany(result);

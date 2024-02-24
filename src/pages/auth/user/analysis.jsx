@@ -8,7 +8,8 @@ const AnalysisPage = () => {
   const [page, setPage] = React.useState(0);
   const { data: mySalons } = useMySalons({ page, size: 5 });
   return (
-    <div>
+    <div className="py-[10px]">
+      <h3 className="text-2xl font-bold text-center mb-[10px]">Thống kê</h3>
       <Analysis data={mySalons?.salons} />
       <div className="flex items-center justify-center flex-col mt-[10px]">
         <span className="text-white">

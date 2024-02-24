@@ -1,11 +1,9 @@
-import React from "react";
-import Navigate from "../components/Navigate";
-import { useRouter } from "next/navigation";
-import useProfile from "../react-query/useProfile";
-import toast from "react-hot-toast";
-import Image from "next/image";
-import plusLogo from "@/public/plus-white.svg";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import React from "react";
+import toast from "react-hot-toast";
+import Sidebar from "../containers/private/user/Sidebar";
+import useProfile from "../react-query/useProfile";
 
 const authClient = (Component) => {
   return function ClientOnly({ children, ...rest }) {
@@ -34,45 +32,9 @@ const authClient = (Component) => {
     }, [router, queryClient]);
 
     return load ? (
-      <div className="bg-slate-500 min-h-screen">
+      <Sidebar>
         <Component {...rest}>{children}</Component>
-        <div className="absolute bottom-5 left-5">
-          <div
-            className="size-[45px] rounded-full flex items-center justify-center bg-primary cursor-pointer"
-            onClick={() => setModal(!modal)}
-          >
-            <Image src={plusLogo} alt="plus-image" />
-          </div>
-          {modal && (
-            <div className="bg-white w-[120px] rounded-md bottom-[38px] left-8 absolute flex flex-col">
-              <p
-                className="text-[18px] py-1 text-center cursor-pointer hover:bg-primary hover:text-white"
-                onClick={() => {
-                  router.replace("/auth/user/main");
-                  setModal(false);
-                }}
-              >
-                Báo cáo
-              </p>
-              <p
-                className="text-[18px] py-1 text-center cursor-pointer hover:bg-primary hover:text-white"
-                onClick={() => {
-                  router.replace("/auth/user/analysis");
-                  setModal(false);
-                }}
-              >
-                Thống kê
-              </p>
-              <p
-                className="text-[18px] py-1 text-center cursor-pointer hover:bg-primary hover:text-white"
-                onClick={logout}
-              >
-                Thoát
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
+      </Sidebar>
     ) : (
       <div>Loading...</div>
     );
