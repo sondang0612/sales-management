@@ -1,16 +1,31 @@
-import React from "react";
-import { RxSketchLogo, RxDashboard } from "react-icons/rx";
-import { CiUser } from "react-icons/ci";
-import { useRouter } from "next/navigation";
-import { IoLogOut } from "react-icons/io5";
-import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { IoCreateOutline } from "react-icons/io5";
-import { IoAnalytics } from "react-icons/io5";
+import { Layout } from "antd/lib/index";
+import Sider from "antd/lib/layout/Sider";
+import { Content } from "antd/lib/layout/layout";
+import { useRouter } from "next/navigation";
+import React from "react";
+import toast from "react-hot-toast";
+const contentStyle = {
+  color: "#fff",
+  backgroundColor: "#BDBDBD",
+};
 
+const siderStyle = {
+  lineHeight: "50px",
+  color: "#fff",
+  backgroundColor: "#333",
+};
+
+const layoutStyle = {
+  overflow: "hidden",
+  width: "100%",
+  maxWidth: "100%",
+  minHeight: 800,
+};
 const Sidebar = ({ children }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [load, setLoad] = React.useState(false);
 
   const logout = () => {
     router.replace("/");
@@ -18,39 +33,43 @@ const Sidebar = ({ children }) => {
     toast.success("Đăng xuất thành công!!!");
     queryClient.removeQueries();
   };
-  return (
-    <div className="flex bg-gray-300">
-      <div className="w-20 h-screen p-4 bg-white border-r-[1px] flex flex-col justify-between">
-        <div className="flex flex-col items-center">
-          <div className="bg-purple-800 text-white p-3 rounded-lg inline-block">
-            <RxSketchLogo size={20} />
-          </div>
-          <span className="border-b-[1px] border-gray-200 w-full p-2" />
+  React.useEffect(() => {
+    const id = setTimeout(() => {
+      setLoad(true);
+    }, 200);
 
-          <div
-            className="bg-gray-100 hover:bg-gray-200 cursor-pointer p-3 rounded-lg inline-block my-4"
-            onClick={() => router.replace("main")}
-          >
-            <IoCreateOutline size={20} />
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+  return (
+    <Layout style={layoutStyle}>
+      <Layout>
+        <Sider style={siderStyle}>
+          <div className="flex flex-col">
+            <p
+              className="text-white hover:bg-black px-5 cursor-pointer"
+              onClick={() => router.replace("main")}
+            >
+              Nhập Form
+            </p>
+            <div
+              className="text-white hover:bg-black px-5 cursor-pointer"
+              onClick={() => router.replace("analysis")}
+            >
+              Thống kê
+            </div>
+            <div
+              className="text-red-500 hover:bg-black px-5 cursor-pointer"
+              onClick={logout}
+            >
+              Thoát
+            </div>
           </div>
-          <span className="border-b-[1px] border-gray-200 w-full p-2" />
-          <div
-            className="bg-gray-100  hover:bg-gray-200 cursor-pointer p-3 rounded-lg inline-block my-4"
-            onClick={() => router.replace("analysis")}
-          >
-            <IoAnalytics size={20} />
-          </div>
-          <span className="border-b-[1px] border-gray-200 w-full p-2" />
-          <div
-            className="bg-gray-100 hover:bg-red-500 text-red-500 hover:text-white cursor-pointer p-3 rounded-lg inline-block my-4"
-            onClick={logout}
-          >
-            <IoLogOut size={20} />
-          </div>
-        </div>
-      </div>
-      <main className="w-full">{children}</main>
-    </div>
+        </Sider>
+        <Content style={contentStyle}>{load ? children : <div />}</Content>
+      </Layout>
+    </Layout>
   );
 };
 

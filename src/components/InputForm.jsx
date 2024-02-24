@@ -1,6 +1,6 @@
 import React from "react";
 const inputClassName =
-  "rounded-md border border-gray-400 w-full p-2 outline-none md:text-[14px] text-[10px] focus:border focus:border-[#493EFF]";
+  "rounded-md border border-gray-400 w-full text-black p-2 outline-none md:text-[14px] text-[10px] focus:border focus:border-[#493EFF]";
 const InputForm = (props) => {
   const { labelName, placeholder, type, isArea, fieldName, value, onChange } =
     props;

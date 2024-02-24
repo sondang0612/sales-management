@@ -1,3 +1,4 @@
+import Sidebar from "@/src/containers/private/admin/Sidebar";
 import useUsers from "@/src/react-query/useUsers";
 import authAdmin from "@/src/utils/authAdmin";
 import { Select, Table } from "antd/lib/index";
@@ -63,9 +64,10 @@ const Users = () => {
       createdAt: dayjs(user.createdAt).format("DD/MM/YYYY"),
     }));
   }, [usersPage]);
+
   return (
-    <div className="flex flex-col my-5 gap-1 mx-1">
-      <div className="w-[10%]">
+    <div className="flex flex-col my-2 mx-1">
+      <div className="w-[15%]">
         <Select
           style={{ width: "100%" }}
           value={filter}
@@ -75,7 +77,6 @@ const Users = () => {
           <Select.Option value="countOrders">Ra đơn nhiều nhất</Select.Option>
         </Select>
       </div>
-
       <Table
         tableLayout="auto"
         scroll={{ x: "max-content" }}
