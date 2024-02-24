@@ -8,7 +8,6 @@ export default function Home() {
     const token = localStorage.getItem("token");
     if (token) router.replace("auth/user/main");
   }, [router]);
-
   return (
     <div className="flex items-center min-h-screen bg-slate-500 justify-center">
       <LoginForm />

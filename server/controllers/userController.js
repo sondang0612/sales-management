@@ -1,6 +1,6 @@
-import { catchAsync } from "../../src/utils/catchAsync";
-import User from "../models/User";
+import { catchAsync } from "@/src/utils/catchAsync";
 import jwt from "jsonwebtoken";
+import User from "../models/User";
 export const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "123", {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -83,4 +83,4 @@ const getUsers = catchAsync(async (req, res) => {
   });
 });
 
-export { login, getProfile, register, getUsers };
+export { getProfile, getUsers, login, register };

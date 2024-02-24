@@ -4,6 +4,7 @@ import connectDB from "../../lib/connectDB";
 export default function base() {
   return nc()
     .use(async (req, res, next) => {
+      console.log("zo ne");
       await connectDB();
       next();
     })
