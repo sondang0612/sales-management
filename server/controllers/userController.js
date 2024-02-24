@@ -1,7 +1,6 @@
-import { catchAsync } from "@/src/utils/catchAsync";
+import { catchAsync } from "../../src/utils/catchAsync";
 import User from "../models/User";
 import jwt from "jsonwebtoken";
-import SalonReport from "../models/SalonReport";
 export const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "123", {
     expiresIn: process.env.JWT_EXPIRES_IN,
