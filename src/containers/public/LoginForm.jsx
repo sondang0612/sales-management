@@ -34,7 +34,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="md:w-[30%] w-full bg-white p-5 rounded-md">
+    <div className="md:w-[30%] w-[80%] bg-white p-5 rounded-md">
       <h3 className="text-[24px] mb-5 text-center font-bold">
         {isRegister ? "Đăng kí" : "Đăng nhập"}
       </h3>
@@ -93,12 +93,12 @@ const LoginForm = () => {
           </>
         ) : (
           <>
-            <p
+            {/* <p
               className="md:text-sm text-[10px] cursor-pointer"
               onClick={() => setIsRegister(true)}
             >
               Quên mật khẩu?
-            </p>
+            </p> */}
             <p
               className="md:text-sm text-[10px] cursor-pointer"
               onClick={() => setIsRegister(true)}

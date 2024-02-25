@@ -23,7 +23,8 @@ const layoutStyle = {
   overflow: "hidden",
   width: "100%",
   maxWidth: "100%",
-  height: 1000,
+  minHeight: "100vh",
+  position: "fixed",
 };
 
 const Sidebar = ({ children }) => {
@@ -53,19 +54,19 @@ const Sidebar = ({ children }) => {
         <Sider style={siderStyle}>
           <div className="flex flex-col">
             <p
-              className="text-white hover:bg-black px-5 cursor-pointer"
+              className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={() => router.replace("main")}
             >
               Thống kê tổng
             </p>
             <div
-              className="text-white hover:bg-black px-5 cursor-pointer"
+              className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={() => router.replace("users")}
             >
               Quản lý sales
             </div>
             <div
-              className="text-red-500 hover:bg-black px-5 cursor-pointer"
+              className="text-red-500 hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={logout}
             >
               Thoát

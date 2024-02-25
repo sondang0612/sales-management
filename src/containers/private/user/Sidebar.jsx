@@ -20,7 +20,8 @@ const layoutStyle = {
   overflow: "hidden",
   width: "100%",
   maxWidth: "100%",
-  minHeight: 800,
+  minHeight: "100vh",
+  position: "fixed",
 };
 const Sidebar = ({ children }) => {
   const router = useRouter();
@@ -48,19 +49,19 @@ const Sidebar = ({ children }) => {
         <Sider style={siderStyle}>
           <div className="flex flex-col">
             <p
-              className="text-white hover:bg-black px-5 cursor-pointer"
+              className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={() => router.replace("main")}
             >
-              Nhập Form
+              Nhập báo cáo
             </p>
             <div
-              className="text-white hover:bg-black px-5 cursor-pointer"
+              className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={() => router.replace("analysis")}
             >
               Thống kê
             </div>
             <div
-              className="text-red-500 hover:bg-black px-5 cursor-pointer"
+              className="text-red-500 hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={logout}
             >
               Thoát

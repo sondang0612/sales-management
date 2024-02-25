@@ -78,9 +78,9 @@ const FormSteps = () => {
 
   return (
     <div className="flex justify-center mt-5">
-      <div className="bg-white md:w-[60%] w-full rounded-md shadow-md p-2">
+      <div className="bg-white md:w-[60%] w-[80%] rounded-md shadow-md md:p-10 p-5">
         <div className="flex flex-row md:gap-[40px] gap-[10px]">
-          <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1">
+          {/* <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1">
             {formData.map((_, index) => (
               <div
                 onClick={() => goToSpecificStep(index)}
@@ -118,8 +118,8 @@ const FormSteps = () => {
                 </div>
               </div>
             )}
-          </div>
-          <div className="bg-white rounded-md w-[80%] flex flex-col gap-5">
+          </div> */}
+          <div className="bg-white rounded-md w-full flex flex-col gap-5">
             <select
               className={`border border-gray-500 w-[100%] text-sm rounded-lg block p-1.5 text-[14px] text-black`}
               value={formData[step]?.category || "no-account"}

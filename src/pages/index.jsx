@@ -9,8 +9,14 @@ export default function Home() {
     if (token) router.replace("auth/user/main");
   }, [router]);
   return (
-    <div className="flex items-center min-h-screen bg-slate-500 justify-center">
-      <LoginForm />
+    <div className="w-screen h-screen bg-[#2b2b2b]">
+      <div className="bg-animation">
+        <div className="absolute">
+          <div className="w-screen h-screen flex items-center justify-center">
+            <LoginForm />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
