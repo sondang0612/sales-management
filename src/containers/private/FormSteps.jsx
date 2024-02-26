@@ -25,8 +25,13 @@ const FormSteps = () => {
   const { mutate: createSalonReport, isSuccess } = useCreateSalonReport();
   const [modal, setModal] = React.useState(false);
   const { data: mySalons } = useAllMySalons();
-  const validate = ({ address, category, content, name, phone }) => {
+  const validate = ({ address, category, content, name, phone, images }) => {
     if (!category || !address || !content || !name || !phone) return false;
+    if (images.length === 0) {
+      toast.error("Chưa chọn ảnh kệ");
+      return false;
+    }
+
     return true;
   };
   const onSubmit = async () => {
