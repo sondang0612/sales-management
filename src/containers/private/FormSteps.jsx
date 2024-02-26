@@ -1,15 +1,11 @@
 "use client";
+import InputForm from "@/src/components/InputForm";
+import useAllMySalons from "@/src/react-query/useAllMySalons";
+import useCreateSalonReport from "@/src/react-query/useCreateSalonReport";
 import React from "react";
 import toast from "react-hot-toast";
-import Image from "next/image";
-import InputForm from "@/src/components/InputForm";
 import Button from "../public/Button";
-import plusLogo from "@/public/plus.svg";
-import deleteLogo from "@/public/delete.svg";
-import useCreateSalonReport from "@/src/react-query/useCreateSalonReport";
-import useMySalonReports from "@/src/react-query/useMySalonReports";
-import useMySalons from "@/src/react-query/useMySalons";
-import useAllMySalons from "@/src/react-query/useAllMySalons";
+import SelectImageFiles from "@/src/components/SelectImageFiles";
 
 const initialFormData = {
   name: "",
@@ -17,6 +13,7 @@ const initialFormData = {
   content: "",
   category: "no-account",
   phone: "",
+  images: [],
 };
 
 const FormSteps = () => {
@@ -84,7 +81,7 @@ const FormSteps = () => {
   }, [isSuccess]);
 
   return (
-    <div className="flex justify-center mt-5">
+    <div className="flex justify-center my-5">
       <div className="bg-white md:w-[60%] w-[80%] rounded-md shadow-md md:p-10 p-5">
         <div className="flex flex-row md:gap-[40px] gap-[10px]">
           {/* <div className="bg-primary rounded-md flex flex-col py-5 md:py-8 gap-1">
@@ -223,6 +220,7 @@ const FormSteps = () => {
               fieldName="content"
               value={formData[step]?.content}
             />
+            <SelectImageFiles />
             <div className="w-full">
               {step !== 0 && (
                 <Button title="Quay lại" onClick={() => goNextStep("prev")} />

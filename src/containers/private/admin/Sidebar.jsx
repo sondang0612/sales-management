@@ -25,7 +25,6 @@ const layoutStyle = {
   width: "100%",
   maxWidth: "100%",
   minHeight: "100vh",
-  position: "fixed",
 };
 
 const Sidebar = ({ children }) => {
