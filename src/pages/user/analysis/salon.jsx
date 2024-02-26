@@ -10,7 +10,6 @@ const AnalysisPage = () => {
 
   return (
     <>
-      <h3 className="text-2xl font-bold text-center mb-[10px]">Thống kê</h3>
       <SalonAnalysis
         data={mySalons}
         page={page}

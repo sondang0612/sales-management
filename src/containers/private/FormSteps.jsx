@@ -14,6 +14,7 @@ const initialFormData = {
   category: "no-account",
   phone: "",
   images: [],
+  localImages: [],
 };
 
 const FormSteps = () => {
@@ -73,6 +74,10 @@ const FormSteps = () => {
     },
     [setFormData, step]
   );
+
+  const handleSetLocalImagesToFormData = (localImages) => {
+    console.log(localImages);
+  };
 
   React.useEffect(() => {
     if (isSuccess) {
@@ -220,7 +225,7 @@ const FormSteps = () => {
               fieldName="content"
               value={formData[step]?.content}
             />
-            <SelectImageFiles />
+            {/* <SelectImageFiles onChange={handleSetLocalImagesToFormData} /> */}
             <div className="w-full">
               {step !== 0 && (
                 <Button title="Quay lại" onClick={() => goNextStep("prev")} />

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-const SelectImageFiles = () => {
+const SelectImageFiles = ({ onChange }) => {
   const [images, setImages] = React.useState([]);
 
   const handleChangeFiles = async (e) => {
@@ -14,6 +14,10 @@ const SelectImageFiles = () => {
   const deleteImage = (image) => {
     setImages((prev) => prev.filter((item) => item !== image));
   };
+
+  React.useEffect(() => {
+    onChange(images);
+  }, [onChange, images]);
 
   return (
     <div>
@@ -29,18 +33,12 @@ const SelectImageFiles = () => {
           onChange={handleChangeFiles}
         />
       </div>
-      <div className="flex flex-row flex-wrap gap-2 mb-2">
+      <div className="mb-2 flex flex-row flex-wrap gap-2">
         {images?.map((image, index) => (
           <div key={index} className="relative">
-            <img
-              src={image}
-              alt="test"
-              width={150}
-              height={150}
-              className="rounded-sm"
-            />
+            <img src={image} alt="test" className="rounded-sm size-[40px]" />
             <div
-              className="cursor-pointer size-[20px] bg-[#333] absolute top-1 right-1  flex items-center justify-center rounded-full"
+              className="cursor-pointer size-[20px] bg-[#333] absolute top-0 right-0  flex items-center justify-center rounded-full"
               onClick={() => deleteImage(image)}
             >
               x

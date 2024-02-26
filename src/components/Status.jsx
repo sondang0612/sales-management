@@ -1,7 +1,7 @@
 import React from "react";
 const COLORS = {
   "no-account": "bg-[#ff0000]",
-  "re-take-care-no-account": "bg-[#E91E63]",
+  "re-take-care-no-account": "bg-yellow-500",
   "re-take-care-have-account": "bg-green-500",
 };
 const Status = ({ number, category }) => {
