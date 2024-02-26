@@ -10,7 +10,6 @@ const Page = () => {
   const [page, setPage] = React.useState(0);
   const [searchText, setSearchText] = React.useState("");
   const { data: user } = useUser({ id: router.query?.id });
-  console.log(user);
   const { data: salonsByUserId } = useSalonsByUserId({
     page,
     size: 5,

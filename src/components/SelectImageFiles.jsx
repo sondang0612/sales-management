@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-const SelectImageFiles = ({ onChange }) => {
+const SelectImageFiles = ({ onChange, isSuccess }) => {
   const [images, setImages] = React.useState([]);
-
   const handleChangeFiles = async (e) => {
     e.stopPropagation();
     const files = [...e.target.files];
     const formatFiles = files.map((file) => URL.createObjectURL(file));
-    setImages([...images, ...formatFiles]);
+    setImages(formatFiles);
+    onChange(files);
   };
 
   const deleteImage = (image) => {
@@ -16,8 +16,8 @@ const SelectImageFiles = ({ onChange }) => {
   };
 
   React.useEffect(() => {
-    onChange(images);
-  }, [onChange, images]);
+    if (isSuccess) setImages([]);
+  }, [isSuccess]);
 
   return (
     <div>

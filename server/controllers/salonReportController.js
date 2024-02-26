@@ -17,8 +17,11 @@ const create = catchAsync(async (req, res) => {
       countOrders: user.countOrders + countOrders,
     });
   }
-
-  const result = formData.map((item) => ({ ...item, user: user._id }));
+  const result = formData.map((item) => ({
+    ...item,
+    user: user._id,
+    images: item.images,
+  }));
   SalonReport.insertMany(result);
   res.status(200).json({ msg: "Đã lưu" });
 });

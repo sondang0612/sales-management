@@ -38,6 +38,12 @@ const salonReportSchema = new Schema(
       ref: "User",
       required: [true, "Report must belong to a user"],
     },
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
   { timestamps: true }
 );
