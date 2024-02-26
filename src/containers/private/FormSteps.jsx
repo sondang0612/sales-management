@@ -50,6 +50,8 @@ const FormSteps = () => {
 
     if (!status.isSuccess) {
       toast.error(`Form thứ ${status.index + 1} chưa điền đủ`);
+      setModal(false);
+
       return undefined;
     }
     for (let i = 0; i < formData.length; i++) {
