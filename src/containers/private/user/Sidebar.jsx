@@ -1,3 +1,4 @@
+import pathNames from "@/src/utils/pathNames";
 import { useQueryClient } from "@tanstack/react-query";
 import { Layout } from "antd/lib/index";
 import Sider from "antd/lib/layout/Sider";
@@ -29,7 +30,7 @@ const Sidebar = ({ children }) => {
   const [load, setLoad] = React.useState(false);
 
   const logout = () => {
-    router.replace("/");
+    router.replace(pathNames.USER_LOGIN);
     localStorage.removeItem("token");
     toast.success("Đăng xuất thành công!!!");
     queryClient.removeQueries();
@@ -50,13 +51,13 @@ const Sidebar = ({ children }) => {
           <div className="flex flex-col">
             <p
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace("main")}
+              onClick={() => router.replace(pathNames.USER_CREATE_FORM)}
             >
               Nhập báo cáo
             </p>
             <div
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace("analysis")}
+              onClick={() => router.replace(pathNames.USER_ANALYSIS_SALON)}
             >
               Thống kê
             </div>

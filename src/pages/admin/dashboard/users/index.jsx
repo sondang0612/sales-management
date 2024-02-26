@@ -1,8 +1,10 @@
 import Sidebar from "@/src/containers/private/admin/Sidebar";
 import useUsers from "@/src/react-query/useUsers";
 import authAdmin from "@/src/utils/authAdmin";
+import pathNames from "@/src/utils/pathNames";
 import { Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const columns = [
@@ -10,7 +12,7 @@ const columns = [
     title: "Tên",
     dataIndex: "name",
     key: "name",
-    render: (text, data) => {
+    render: (text) => {
       return <p className="text-blue-500 cursor-pointer">{text}</p>;
     },
   },
@@ -55,6 +57,7 @@ const Users = () => {
   const [page, setPage] = React.useState(0);
   const [filter, setFilter] = React.useState("newest");
   const { data: usersPage } = useUsers({ page, size: 5, sortBy: filter });
+  const router = useRouter();
   const formatData = React.useMemo(() => {
     return usersPage?.users?.map((user) => ({
       key: user._id,
@@ -69,7 +72,7 @@ const Users = () => {
     <div className="flex flex-col my-2 mx-1">
       <div className="w-[15%]">
         <Select
-          style={{ width: "100%" }}
+          style={{ width: "100%", textAlign: "start" }}
           value={filter}
           onChange={(value) => setFilter(value)}
         >
@@ -89,7 +92,17 @@ const Users = () => {
             setPage(page - 1);
           },
         }}
-        rowSelection={{ ...rowSelection, type: "checkbox" }}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              router.push(`${pathNames.ADMIN_DASHBOARD_USERS}/${record?.key}`);
+            },
+          };
+        }}
+        rowSelection={{
+          ...rowSelection,
+          type: "checkbox",
+        }}
       />
     </div>
   );

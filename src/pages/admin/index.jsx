@@ -1,6 +1,7 @@
 import InputForm from "@/src/components/InputForm";
 import Button from "@/src/containers/public/Button";
 import useLoginAdmin from "@/src/react-query/useLoginAdmin";
+import pathNames from "@/src/utils/pathNames";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
@@ -13,7 +14,7 @@ export default function Admin() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("token-admin");
-    if (token) router.replace("dashboard/main");
+    if (token) router.replace(pathNames.ADMIN_DASHBOARD);
   }, [router]);
 
   const onSubmit = () => {
@@ -50,8 +51,8 @@ export default function Admin() {
                 <Button
                   title={"Đăng nhập"}
                   textColor="text-white"
-                  bgColor="bg-[#493EFF]"
-                  hover="hover:bg-[rgba(73,62,255,0.9)]"
+                  bgColor="bg-[#2b2b2b]"
+                  hover="hover:bg-black"
                   onClick={onSubmit}
                 />
               </div>

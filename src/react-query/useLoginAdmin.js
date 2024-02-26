@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance";
+import pathNames from "../utils/pathNames";
 const loginAdmin = async (form) => {
   const res = await axiosInstance.post("api/admin/login", form);
   return res.data;
@@ -15,7 +16,7 @@ const useLoginAdmin = () => {
     onSuccess: async (data) => {
       toast.success(data?.msg);
       localStorage.setItem("token-admin", data.token);
-      window.location.href = "dashboard/main";
+      window.location.href = pathNames.ADMIN_DASHBOARD;
     },
   });
 };

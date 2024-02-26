@@ -72,8 +72,8 @@ const LoginForm = () => {
         <Button
           title={isRegister ? "Đăng ký" : "Đăng nhập"}
           textColor="text-white"
-          bgColor="bg-[#493EFF]"
-          hover="hover:bg-[rgba(73,62,255,0.9)]"
+          bgColor="bg-[#2b2b2b]"
+          hover="hover:bg-black"
           onClick={onSubmit}
         />
       </div>

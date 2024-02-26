@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 import Sidebar from "../containers/private/user/Sidebar";
+import pathNames from "./pathNames";
 
 const authClient = (Component) => {
   return function ClientOnly({ children, ...rest }) {
@@ -13,7 +14,7 @@ const authClient = (Component) => {
     React.useEffect(() => {
       const token = localStorage.getItem("token");
       if (!token) {
-        router.replace("/");
+        router.replace(pathNames.USER_LOGIN);
         toast.error("Tài khoản hết hạn!!");
         queryClient.removeQueries();
       } else {

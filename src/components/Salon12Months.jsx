@@ -2,9 +2,8 @@ import React from "react";
 import useSalonReportAnalysisByName from "../react-query/useSalonReportAnalysisByName";
 import Status from "./Status";
 
-const Salon12Months = ({ name }) => {
-  const { data: analysis } = useSalonReportAnalysisByName({ name });
-
+const Salon12Months = ({ name, userId }) => {
+  const { data: analysis } = useSalonReportAnalysisByName({ name, userId });
   const formatDataByMonth = (month) => {
     return analysis
       ?.map((item) =>

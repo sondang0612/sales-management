@@ -1,8 +1,9 @@
+import pathNames from "@/src/utils/pathNames";
 import { useQueryClient } from "@tanstack/react-query";
 import { Layout } from "antd/lib/index";
 import Sider from "antd/lib/layout/Sider";
 import { Content } from "antd/lib/layout/layout";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 const contentStyle = {
@@ -33,7 +34,7 @@ const Sidebar = ({ children }) => {
   const [load, setLoad] = React.useState(false);
 
   const logout = () => {
-    router.replace("/auth/admin/login");
+    router.replace(pathNames.ADMIN_LOGIN);
     localStorage.removeItem("token-admin");
     toast.success("Đăng xuất thành công!!!");
     queryClient.removeQueries();
@@ -55,15 +56,15 @@ const Sidebar = ({ children }) => {
           <div className="flex flex-col">
             <p
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace("main")}
+              onClick={() => router.replace(pathNames.ADMIN_DASHBOARD)}
             >
               Thống kê tổng
             </p>
             <div
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace("users")}
+              onClick={() => router.replace(pathNames.ADMIN_DASHBOARD_USERS)}
             >
-              Quản lý sales
+              Quản lý người dùng
             </div>
             <div
               className="text-red-500 hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"

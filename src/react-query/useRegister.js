@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance";
+import pathNames from "../utils/pathNames";
 const register = async (form) => {
   const res = await axiosInstance.post("api/user/register", form);
   return res.data;
@@ -21,7 +22,7 @@ const useRegister = () => {
     onSuccess: async (data) => {
       toast.success(data?.msg);
       localStorage.setItem("token", data.token);
-      window.location.href = "auth/user/main";
+      window.location.href = pathNames.USER_CREATE_FORM;
     },
   });
 };
