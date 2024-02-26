@@ -83,4 +83,11 @@ const getUsers = catchAsync(async (req, res) => {
   });
 });
 
-export { getProfile, getUsers, login, register };
+const getById = catchAsync(async (req, res) => {
+  const { id } = req.query;
+  const user = await User.findById(id);
+
+  return res.status(200).json({ data: user });
+});
+
+export { getProfile, getUsers, login, register, getById };

@@ -22,3 +22,10 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
+
+.ant-btn-primary {
+  background-color: #333;
+}
+.ant-btn-primary:hover {
+  background-color: #000;
+}

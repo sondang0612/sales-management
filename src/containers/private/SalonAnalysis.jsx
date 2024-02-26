@@ -1,10 +1,18 @@
 import Salon12Months from "@/src/components/Salon12Months";
-import React from "react";
-
-const SalonAnalysis = ({ data, page, setPage, userId }) => {
+import { Input } from "antd/lib/index";
+const { Search } = Input;
+const SalonAnalysis = ({ data, page, setPage, userId, setSearchText }) => {
   return (
     <div className="py-[10px]">
-      <h3 className="text-2xl font-bold text-center mb-[10px]">Thống kê</h3>
+      <div className="inline-block mb-1">
+        <Search
+          placeholder="Nhập tên salon tìm kiếm"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={setSearchText}
+        />
+      </div>
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -2,8 +2,16 @@ import React from "react";
 const inputClassName =
   "rounded-md border border-gray-400 w-full text-black p-2 outline-none md:text-[14px] text-[10px] focus:border focus:border-[#493EFF]";
 const InputForm = (props) => {
-  const { labelName, placeholder, type, isArea, fieldName, value, onChange } =
-    props;
+  const {
+    labelName,
+    placeholder,
+    type,
+    isArea,
+    fieldName,
+    value,
+    onChange,
+    readOnly,
+  } = props;
   return (
     <div className="w-full">
       {labelName && (
@@ -22,10 +30,13 @@ const InputForm = (props) => {
       ) : (
         <input
           type={type}
-          className={inputClassName}
+          className={`${inputClassName} ${
+            readOnly ? "focus:border-gray-500 text-gray-500" : ""
+          }`}
           placeholder={placeholder || `Hãy nhập ${labelName}`}
           onChange={(e) => onChange(e, fieldName)}
           value={value}
+          readOnly={readOnly}
         />
       )}
     </div>

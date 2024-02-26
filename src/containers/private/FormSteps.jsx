@@ -9,6 +9,7 @@ import deleteLogo from "@/public/delete.svg";
 import useCreateSalonReport from "@/src/react-query/useCreateSalonReport";
 import useMySalonReports from "@/src/react-query/useMySalonReports";
 import useMySalons from "@/src/react-query/useMySalons";
+import useAllMySalons from "@/src/react-query/useAllMySalons";
 
 const initialFormData = {
   name: "",
@@ -21,12 +22,12 @@ const initialFormData = {
 const FormSteps = () => {
   const [step, setStep] = React.useState(0);
   const [formData, setFormData] = React.useState([initialFormData]);
-  const { mutate: createSalonReport } = useCreateSalonReport();
+  const { mutate: createSalonReport, isSuccess } = useCreateSalonReport();
+  const { data: mySalons } = useAllMySalons();
   const validate = ({ address, category, content, name, phone }) => {
     if (!category || !address || !content || !name || !phone) return false;
     return true;
   };
-
   const onSubmit = () => {
     const status = {
       isSuccess: true,
@@ -75,6 +76,12 @@ const FormSteps = () => {
     },
     [setFormData, step]
   );
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      setFormData([initialFormData]);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="flex justify-center mt-5">
@@ -128,7 +135,7 @@ const FormSteps = () => {
                   return prev.map((item, index) =>
                     index !== step
                       ? item
-                      : { ...item, category: e.target.value }
+                      : { ...initialFormData, category: e.target.value }
                   );
                 })
               }
@@ -143,17 +150,63 @@ const FormSteps = () => {
                 Chăm sóc đã có account
               </option>
             </select>
-            <InputForm
-              labelName="Tên Salon"
-              onChange={onChangeInput}
-              fieldName="name"
-              value={formData[step]?.name}
-            />
+            {formData[step].category === "no-account" ? (
+              <InputForm
+                labelName="Tên Salon"
+                onChange={onChangeInput}
+                fieldName="name"
+                value={formData[step]?.name}
+              />
+            ) : (
+              <div>
+                <label className="block mb-2 text-[10px] md:text-sm font-medium text-gray-900">
+                  Tên Salon
+                </label>
+                <select
+                  className={`border border-gray-500 w-[100%] text-sm rounded-lg block p-1.5 text-[14px] text-black`}
+                  value={formData[step]?.name}
+                  onChange={(e) => {
+                    const salons = mySalons?.salons?.filter(
+                      (item) => item.name === e.target.value
+                    );
+                    if (salons.length !== 0) {
+                      const { name, address, phone } = salons[0];
+                      setFormData((prev) => {
+                        return prev.map((item, index) =>
+                          index !== step
+                            ? item
+                            : {
+                                ...item,
+                                name,
+                                address,
+                                phone,
+                              }
+                        );
+                      });
+                    }
+                  }}
+                >
+                  <option value={"no-select"} className="text-black">
+                    Chọn tên salon
+                  </option>
+                  {mySalons.salons.map((item) => (
+                    <option
+                      value={item.name}
+                      className="text-black"
+                      key={item.name}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <InputForm
               labelName="Địa chỉ"
               onChange={onChangeInput}
               fieldName="address"
               value={formData[step]?.address}
+              readOnly={formData[step].category !== "no-account" ? true : false}
             />
             <InputForm
               labelName="Số điện thoại"
@@ -161,6 +214,7 @@ const FormSteps = () => {
               onChange={onChangeInput}
               fieldName="phone"
               value={formData[step]?.phone}
+              readOnly={formData[step].category !== "no-account" ? true : false}
             />
             <InputForm
               labelName="Báo cáo nội dung"
