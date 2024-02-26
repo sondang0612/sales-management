@@ -189,7 +189,7 @@ const FormSteps = () => {
                   <option value={"no-select"} className="text-black">
                     Chọn tên salon
                   </option>
-                  {mySalons.salons.map((item) => (
+                  {mySalons?.salons?.map((item) => (
                     <option
                       value={item.name}
                       className="text-black"
