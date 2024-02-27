@@ -1,6 +1,6 @@
 import React from "react";
 const COLORS = {
-  "no-account": "bg-[#ff0000]",
+  "no-account": "bg-red-500",
   "re-take-care-no-account": "bg-yellow-500",
   "re-take-care-have-account": "bg-green-500",
 };

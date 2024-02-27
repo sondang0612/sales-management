@@ -1,5 +1,7 @@
 import Salon12Months from "@/src/components/Salon12Months";
+import pathNames from "@/src/utils/pathNames";
 import { Input } from "antd/lib/index";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 const { Search } = Input;
 const SalonAnalysis = ({
@@ -9,7 +11,9 @@ const SalonAnalysis = ({
   userId,
   setSearchText,
   setYear,
+  role = "USER",
 }) => {
+  const router = useRouter();
   return (
     <>
       <div className="py-[10px]">
@@ -57,8 +61,23 @@ const SalonAnalysis = ({
               {data?.salons &&
                 data?.salons?.map((item, index) => (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
                     key={index}
+                    onClick={() => {
+                      if (item) {
+                        router.push({
+                          pathname: `${
+                            role === "USER"
+                              ? pathNames.USER_ANALYSIS_SALON
+                              : `${pathNames.ADMIN_DASHBOARD_USERS}/${userId}/salons`
+                          }/${item?.name}`,
+                          query: {
+                            phone: item?.phone,
+                            address: item?.address,
+                          },
+                        });
+                      }
+                    }}
                   >
                     <th
                       scope="row"
@@ -108,7 +127,7 @@ const SalonAnalysis = ({
       </div>
       <div className="mb-5 left-0 bg-white p-4 inline-flex rounded-md mx-5 gap-2 flex-col md:text-[14px] text-[8px]">
         <div className="flex flex-row items-center gap-1">
-          <div className="size-[20px] bg-[#ff0000] rounded-md" />
+          <div className="size-[20px] bg-red-500 rounded-md" />
           <p className="text-black">Salon mới tiếp cận (Chưa có account)</p>
         </div>
         <div className="flex flex-row items-center gap-1">

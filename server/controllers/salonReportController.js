@@ -181,10 +181,99 @@ const getSalonsByUserId = catchAsync(async (req, res) => {
   });
 });
 
+const getSalonReportsBySalon = catchAsync(async (req, res) => {
+  const user = req.user;
+  const { page = 0, size = 5, name, address, phone } = req.query;
+  const skip = +page === 0 ? 0 : +page * +size;
+  const limit = +size;
+  const salons = await SalonReport.aggregate([
+    {
+      $match: {
+        user: user._id,
+        name,
+        address,
+        phone,
+      },
+    },
+    { $sort: { createdAt: -1 } },
+    { $project: { category: 1, content: 1, createdAt: 1 } },
+    {
+      $facet: {
+        data: [{ $skip: skip }, { $limit: limit }],
+        pagination: [{ $count: "total" }],
+      },
+    },
+  ]);
+  const { data, pagination } = salons[0];
+
+  const totalPages = pagination.length !== 0 ? pagination[0].total / limit : 0;
+
+  return res.status(200).json({
+    data: {
+      salons: data,
+      totalPages: Math.ceil(totalPages),
+    },
+  });
+});
+
+const deleteById = catchAsync(async (req, res) => {
+  const user = req.user;
+  const { id } = req.query;
+
+  const report = await SalonReport.findOneAndDelete({
+    user: user._id,
+    _id: new mongoose.Types.ObjectId(id),
+  });
+
+  if (report.category === "re-take-care-have-account") {
+    user.countOrders -= 1;
+    user.save();
+  }
+
+  return res.status(204).json({ data: null, msg: "Xóa thành công" });
+});
+
+const getSalonReportsBySalonAndUserId = catchAsync(async (req, res) => {
+  const { page = 0, size = 5, name, address, phone, id: userId } = req.query;
+  const skip = +page === 0 ? 0 : +page * +size;
+  const limit = +size;
+  const salons = await SalonReport.aggregate([
+    {
+      $match: {
+        user: new mongoose.Types.ObjectId(userId),
+        name,
+        address,
+        phone,
+      },
+    },
+    { $sort: { createdAt: -1 } },
+    { $project: { category: 1, content: 1, createdAt: 1 } },
+    {
+      $facet: {
+        data: [{ $skip: skip }, { $limit: limit }],
+        pagination: [{ $count: "total" }],
+      },
+    },
+  ]);
+  const { data, pagination } = salons[0];
+
+  const totalPages = pagination.length !== 0 ? pagination[0].total / limit : 0;
+
+  return res.status(200).json({
+    data: {
+      salons: data,
+      totalPages: Math.ceil(totalPages),
+    },
+  });
+});
+
 export {
   create,
   getMySalons,
   getSalonReportAnalysisByName,
   getSalonsByUserId,
   getAllMySalons,
+  getSalonReportsBySalon,
+  deleteById,
+  getSalonReportsBySalonAndUserId,
 };
