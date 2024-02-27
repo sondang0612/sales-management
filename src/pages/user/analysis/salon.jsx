@@ -6,8 +6,8 @@ import React from "react";
 const AnalysisPage = () => {
   const [page, setPage] = React.useState(0);
   const [searchText, setSearchText] = React.useState("");
-  const { data: mySalons } = useMySalons({ page, size: 5, searchText });
-
+  const [year, setYear] = React.useState("2024");
+  const { data: mySalons } = useMySalons({ page, size: 5, searchText, year });
   return (
     <>
       <SalonAnalysis
@@ -15,6 +15,7 @@ const AnalysisPage = () => {
         page={page}
         setPage={setPage}
         setSearchText={setSearchText}
+        setYear={setYear}
       />
     </>
   );

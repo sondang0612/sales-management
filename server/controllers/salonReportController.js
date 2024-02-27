@@ -28,7 +28,7 @@ const create = catchAsync(async (req, res) => {
 
 const getMySalons = catchAsync(async (req, res) => {
   const user = req.user;
-  const { page = 0, size = 5, searchText } = req.query;
+  const { page = 0, size = 5, searchText, year } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
 
@@ -37,6 +37,10 @@ const getMySalons = catchAsync(async (req, res) => {
       $match: {
         user: user._id,
         name: new RegExp(searchText, "i"),
+        createdAt: {
+          $gte: new Date(`${year}-01-01T00:00:00Z`),
+          $lte: new Date(`${year}-12-31T00:00:00Z`),
+        },
       },
     },
     {
@@ -128,14 +132,19 @@ const getSalonReportAnalysisByName = catchAsync(async (req, res) => {
 
 const getSalonsByUserId = catchAsync(async (req, res) => {
   const { userId } = req.query;
-  const { page = 0, size = 5, searchText } = req.query;
+  const { page = 0, size = 5, searchText, year } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
+  console.log(year);
   const salons = await SalonReport.aggregate([
     {
       $match: {
         user: new mongoose.Types.ObjectId(userId),
         name: new RegExp(searchText, "i"),
+        createdAt: {
+          $gte: new Date(`${year}-01-01T00:00:00Z`),
+          $lte: new Date(`${year}-12-31T00:00:00Z`),
+        },
       },
     },
     {

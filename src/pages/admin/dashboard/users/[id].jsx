@@ -10,11 +10,14 @@ const Page = () => {
   const [page, setPage] = React.useState(0);
   const [searchText, setSearchText] = React.useState("");
   const { data: user } = useUser({ id: router.query?.id });
+  const [year, setYear] = React.useState("2024");
+
   const { data: salonsByUserId } = useSalonsByUserId({
     page,
     size: 5,
     userId: router.query?.id,
     searchText,
+    year,
   });
   return (
     <div>
@@ -27,6 +30,7 @@ const Page = () => {
         setPage={setPage}
         userId={router.query?.id}
         setSearchText={setSearchText}
+        setYear={setYear}
       />
     </div>
   );

@@ -2,18 +2,42 @@ import Salon12Months from "@/src/components/Salon12Months";
 import { Input } from "antd/lib/index";
 import toast from "react-hot-toast";
 const { Search } = Input;
-const SalonAnalysis = ({ data, page, setPage, userId, setSearchText }) => {
+const SalonAnalysis = ({
+  data,
+  page,
+  setPage,
+  userId,
+  setSearchText,
+  setYear,
+}) => {
   return (
     <>
       <div className="py-[10px]">
-        <div className="inline-block mb-1">
-          <Search
-            placeholder="Nhập tên salon tìm kiếm"
-            allowClear
-            enterButton="Search"
-            size="large"
-            onSearch={setSearchText}
-          />
+        <div className="flex items-center mb-1 gap-2">
+          <div className="w-1/3">
+            <Search
+              placeholder="Nhập tên salon tìm kiếm"
+              allowClear
+              enterButton="Search"
+              size="large"
+              onSearch={setSearchText}
+            />
+          </div>
+          <select
+            className={`border border-gray-500 w-1/6 text-sm rounded-lg block p-1.5 text-[14px] text-black`}
+            onChange={(e) => setYear(e.target.value)}
+            defaultValue={"2024"}
+          >
+            {[...Array(10).keys()].map((item) => (
+              <option
+                value={`${2024 + item}`}
+                key={`${2024 + item}`}
+                className="text-black"
+              >
+                {2024 + item}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="relative overflow-x-auto">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
