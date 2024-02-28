@@ -62,7 +62,10 @@ const FormSteps = () => {
       return undefined;
     }
     for (let i = 0; i < formData.length; i++) {
-      const images = await uploadImages(formData[i].localImages);
+      const images = await uploadImages(
+        formData[i].localImages,
+        `${formData[i].name} (${formData[i].address})`
+      );
       formData[i].images = images;
     }
     createSalonReport({ formData });
