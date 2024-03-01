@@ -3,7 +3,7 @@ import useDeleteSalonReportById from "@/src/react-query/useDeleteSalonReportById
 import useSalonReportBySalon from "@/src/react-query/useSalonReportBySalon";
 import authClient from "@/src/utils/authClient";
 import { categories } from "@/src/utils/constants";
-import { Space, Table } from "antd/lib/index";
+import { Space } from "antd/lib/index";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import React from "react";

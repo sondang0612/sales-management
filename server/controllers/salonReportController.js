@@ -196,7 +196,7 @@ const getSalonReportsBySalon = catchAsync(async (req, res) => {
       },
     },
     { $sort: { createdAt: -1 } },
-    { $project: { category: 1, content: 1, createdAt: 1 } },
+    { $project: { category: 1, content: 1, createdAt: 1, images: 1 } },
     {
       $facet: {
         data: [{ $skip: skip }, { $limit: limit }],
@@ -247,7 +247,7 @@ const getSalonReportsBySalonAndUserId = catchAsync(async (req, res) => {
       },
     },
     { $sort: { createdAt: -1 } },
-    { $project: { category: 1, content: 1, createdAt: 1 } },
+    { $project: { category: 1, content: 1, createdAt: 1, images: 1 } },
     {
       $facet: {
         data: [{ $skip: skip }, { $limit: limit }],

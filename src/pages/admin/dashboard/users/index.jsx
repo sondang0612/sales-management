@@ -84,6 +84,7 @@ const Users = () => {
         tableLayout="auto"
         scroll={{ x: "max-content" }}
         dataSource={formatData}
+        rowClassName="cursor-pointer"
         columns={columns}
         pagination={{
           pageSize: 5,
