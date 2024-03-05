@@ -1,9 +1,8 @@
 import base from "@/src/utils/base";
-import * as userController from "@/server/controllers/userController";
+import * as salonReportController from "@/server/controllers/salonReportController";
 import { protect } from "@/server/middlewares/authMiddleware";
 const handler = base()
   .use(protect)
-  .get(userController.getProfile)
-  .post(userController.updateProfile);
+  .get(salonReportController.getSalonReportsHistory);
 
 export default handler;

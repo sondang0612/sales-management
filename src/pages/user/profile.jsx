@@ -1,65 +1,158 @@
-import useChangePassword from "@/src/react-query/useChangePassword";
+import UserLayout from "@/src/components/layout/UserLayout";
 import useProfile from "@/src/react-query/useProfile";
+import useUpdateProfile from "@/src/react-query/useUpdateProfile";
 import authClient from "@/src/utils/authClient";
+import Form from "antd/lib/form/Form";
+import { Button } from "antd/lib/index";
+import Input from "antd/lib/input/Input";
 import React from "react";
+import toast from "react-hot-toast";
 
-const Profile = () => {
+const Page = () => {
+  const [form] = Form.useForm();
   const { data: profile } = useProfile();
-  const { mutate: changePassword } = useChangePassword();
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [newPassword, setNewPassword] = React.useState("");
+  const ref = React.useRef(null);
+  const { mutate: updateProfile, isPending: isLoadingUpdateProfile } =
+    useUpdateProfile({
+      onSuccess: () => {
+        form.setFieldsValue({
+          ...form.getFieldsValue(),
+          oldPassword: "",
+          password: "",
+          confirm: "",
+        });
+      },
+    });
+
+  const arrayFormAccount = React.useMemo(
+    () => [
+      {
+        label: "Tên",
+        name: "username",
+        rules: [
+          {
+            required: true,
+          },
+        ],
+        labelAlign: "left",
+        className: "",
+        component: <Input />,
+      },
+      {
+        label: "Số điện thoại",
+        name: "phone",
+        rules: [{ len: 10 }],
+        labelAlign: "left",
+        className: "",
+        component: <Input className="rounded-md" disabled />,
+      },
+      {
+        label: "Mật khẩu cũ: ",
+        name: "oldPassword",
+        labelAlign: "left",
+        className: "",
+        component: <Input.Password className="rounded-md" />,
+      },
+      {
+        label: "Mật khẩu mới: ",
+        name: "password",
+        labelAlign: "left",
+        className: "",
+        component: <Input.Password className="rounded-md" />,
+      },
+      {
+        label: "Xác nhận mật khẩu: ",
+        name: "confirm",
+        labelAlign: "left",
+        className: "",
+        component: <Input.Password className="rounded-md" />,
+      },
+      {
+        component: (
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="rounded-md hover:bg-blue-500 bg-blue-400"
+            loading={isLoadingUpdateProfile}
+          >
+            Lưu
+          </Button>
+        ),
+      },
+    ],
+    [isLoadingUpdateProfile]
+  );
+
+  const renderForm = ({ component, ...itemProps }, i) => {
+    return (
+      <Form.Item {...itemProps} key={i}>
+        {component}
+      </Form.Item>
+    );
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log(errorInfo);
+  };
+
+  const onFinish = (data) => {
+    if (data.password && data.oldPassword && data.confirm) {
+      if (data.password !== data.confirm) {
+        toast.error("Mật khẩu chưa trùng khớp");
+        return undefined;
+      }
+    }
+
+    if (!data.username) {
+      toast.error("Vui lòng nhập đủ");
+      return undefined;
+    }
+    updateProfile(data);
+  };
+
+  const onFormValuesChangeHandler = (changedValues, values) => {
+    const [name] = Object.keys(changedValues);
+    if (name === "phone" && /[^0-9]/g.test(values[name])) {
+      const validValue = values[name].replace(/[^0-9]/g, "");
+      form.setFieldValue(name, validValue);
+    }
+  };
+
+  React.useEffect(() => {
+    if (profile && ref?.current?.setFieldsValue) {
+      ref.current.setFieldsValue({
+        username: profile?.username,
+        phone: profile?.phone,
+      });
+    }
+  }, [profile, ref.current?.setFieldsValue]);
   return (
-    <>
-      <div className="bg-white overflow-hidden shadow rounded-lg border">
-        <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-3xl leading-6 font-medium text-gray-900">
-            Thông tin cá nhân
-          </h3>
-        </div>
-        <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-          <div className="sm:divide-y sm:divide-gray-200">
-            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Tên</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {profile?.username}
-              </dd>
-            </div>
-            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">SĐT</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {profile?.phone}
-              </dd>
-            </div>
-            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                Nhập mật khẩu mới
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="bg-gray-200 h-[30px] outline-none p-2 rounded-md"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <p
-                  className="text-[10px] underline cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-                </p>
-              </dd>
-            </div>
-          </div>
+    <UserLayout title={"Thông tin cá nhân"}>
+      <div className="p-4 bg-white rounded-md">
+        <div className="mt-7 ml-10">
+          <Form
+            ref={ref}
+            form={form}
+            name="accountInformation"
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{
+              name: profile?.username,
+              phone: profile?.phone,
+            }}
+            onValuesChange={onFormValuesChangeHandler}
+            onFinishFailed={onFinishFailed}
+            onFinish={onFinish}
+            size="large"
+          >
+            {arrayFormAccount
+              .filter((item) => !(item.show === false))
+              .map(renderForm)}
+          </Form>
         </div>
       </div>
-      <button
-        className="bg-white text-blue-500 px-8 rounded-md mt-2 float-right py-2"
-        onClick={() => changePassword({ newPassword })}
-      >
-        Lưu
-      </button>
-    </>
+    </UserLayout>
   );
 };
 
-export default authClient(Profile);
+export default authClient(Page);

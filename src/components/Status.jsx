@@ -6,9 +6,7 @@ const COLORS = {
 };
 const Status = ({ number, category }) => {
   return (
-    <span
-      className={`px-[10px] rounded-md text-white ${COLORS[category]} ml-1`}
-    >
+    <span className={`px-3 rounded-md text-white ${COLORS[category]} ml-1`}>
       {number}
     </span>
   );

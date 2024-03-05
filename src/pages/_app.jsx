@@ -4,6 +4,7 @@ import "../styles/responsive.css";
 
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import MainLayout from "../components/layout/MainLayout";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>

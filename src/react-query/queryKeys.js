@@ -10,6 +10,7 @@ const queryKeys = {
   useUsers: "useUsers",
   useUser: "useUser",
   useSalonsByUserId: "useSalonsByUserId",
+  useSalonReportsHistory: "useSalonReportsHistory",
 };
 
 export default queryKeys;

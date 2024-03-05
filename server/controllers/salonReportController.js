@@ -1,28 +1,13 @@
 import { catchAsync } from "@/src/utils/catchAsync";
-import SalonReport from "../models/SalonReport";
-import User from "../models/User";
 import mongoose from "mongoose";
+import SalonReport from "../models/SalonReport";
+import { SIZE } from "@/src/constant";
 
 const create = catchAsync(async (req, res) => {
   const user = req.user;
+  const form = req.body;
 
-  const { formData } = req.body;
-
-  const countOrders =
-    formData.filter((item) => item.category === "re-take-care-have-account")
-      .length || 0;
-
-  if (countOrders !== 0) {
-    await User.findByIdAndUpdate(user._id, {
-      countOrders: user.countOrders + countOrders,
-    });
-  }
-  const result = formData.map((item) => ({
-    ...item,
-    user: user._id,
-    images: item.images,
-  }));
-  SalonReport.insertMany(result);
+  await SalonReport.create({ ...form, user });
   res.status(200).json({ msg: "Đã lưu" });
 });
 
@@ -62,9 +47,6 @@ const getMySalons = catchAsync(async (req, res) => {
   const { data, pagination } = salons[0];
 
   const dataResult = data?.map((item) => item._id);
-  dataResult.push(
-    ...Array.from(Array(Math.abs(limit - dataResult.length)), (_) => null)
-  );
 
   const totalPages = pagination.length !== 0 ? pagination[0].total / limit : 0;
 
@@ -283,13 +265,110 @@ const getSalonReportsBySalonAndUserId = catchAsync(async (req, res) => {
   });
 });
 
+const getSalonReportsHistory = catchAsync(async (req, res) => {
+  const { page = 0, size = SIZE, userId, from, to, name } = req.query;
+  const skip = +page === 0 ? 0 : +page * +size;
+  const limit = +size;
+  let match = { user: new mongoose.Types.ObjectId(userId) };
+  if (from !== "undefined" && to !== "undefined") {
+    match = {
+      ...match,
+      createdAt: {
+        $gte: new Date(`${from}T00:00:00Z`),
+        $lte: new Date(`${to}T24:00:00Z`),
+      },
+    };
+  }
+  if (name !== "undefined") {
+    match = { ...match, name };
+  }
+  const salons = await SalonReport.aggregate([
+    {
+      $match: match,
+    },
+    { $sort: { createdAt: -1 } },
+    {
+      $project: {
+        category: 1,
+        content: 1,
+        createdAt: 1,
+        images: 1,
+        address: 1,
+        phone: 1,
+        name: 1,
+      },
+    },
+    {
+      $facet: {
+        data: [{ $skip: skip }, { $limit: limit }],
+        pagination: [{ $count: "total" }],
+      },
+    },
+  ]);
+
+  const { data, pagination } = salons[0];
+
+  const totalPages = pagination.length !== 0 ? pagination[0].total / limit : 0;
+
+  return res.status(200).json({
+    data: {
+      data,
+      totalPages: Math.ceil(totalPages),
+    },
+  });
+});
+
+const getAnalysisByNameAndMonthAtYear = catchAsync(async (req, res) => {
+  const { month, name, userId, year } = req.query;
+
+  const salons = await SalonReport.aggregate([
+    {
+      $match: { name, user: new mongoose.Types.ObjectId(userId) },
+    },
+    {
+      $redact: {
+        $cond: [
+          {
+            $and: [
+              { $eq: [{ $month: "$createdAt" }, Number(month)] },
+              { $eq: [{ $year: "$createdAt" }, Number(year)] },
+            ],
+          },
+          "$$KEEP",
+          "$$PRUNE",
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: {
+          name: "$name",
+          category: "$category",
+        },
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+    { $sort: { "_id.category": 1 } },
+  ]);
+
+  return res.status(200).json({
+    data: {
+      data: salons,
+    },
+  });
+});
+
 export {
   create,
+  deleteById,
+  getAllMySalons,
   getMySalons,
   getSalonReportAnalysisByName,
-  getSalonsByUserId,
-  getAllMySalons,
   getSalonReportsBySalon,
-  deleteById,
   getSalonReportsBySalonAndUserId,
+  getSalonReportsHistory,
+  getSalonsByUserId,
+  getAnalysisByNameAndMonthAtYear,
 };

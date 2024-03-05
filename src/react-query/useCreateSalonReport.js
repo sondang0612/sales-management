@@ -6,7 +6,7 @@ const createSalon = async (form) => {
   return res.data;
 };
 
-const useCreateSalonReport = () => {
+const useCreateSalonReport = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (form) => createSalon(form),
@@ -16,6 +16,7 @@ const useCreateSalonReport = () => {
     onSuccess: async (data) => {
       queryClient.invalidateQueries("useMySalons");
       toast.success(data?.msg);
+      onSuccess();
     },
   });
 };

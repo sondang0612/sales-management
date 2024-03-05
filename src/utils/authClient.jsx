@@ -2,7 +2,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
-import Sidebar from "../containers/private/user/Sidebar";
 import pathNames from "./pathNames";
 
 const authClient = (Component) => {
@@ -23,9 +22,7 @@ const authClient = (Component) => {
     }, [router, queryClient]);
 
     return load ? (
-      <Sidebar>
-        <Component {...rest}>{children}</Component>
-      </Sidebar>
+      <Component {...rest}>{children}</Component>
     ) : (
       <div>Loading...</div>
     );

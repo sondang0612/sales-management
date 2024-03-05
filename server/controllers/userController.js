@@ -90,19 +90,24 @@ const getById = catchAsync(async (req, res) => {
   return res.status(200).json({ data: user });
 });
 
-const changePassword = catchAsync(async (req, res) => {
+const updateProfile = catchAsync(async (req, res) => {
   const user = req.user;
-  const { newPassword } = req.body;
-  if (!newPassword) {
-    return res.status(400).json({ msg: "Vui lòng nhập đủ thông tin" });
+  const { username, oldPassword, password, phone } = req.body;
+  const _updatedUser = await User.findOne({ phone, role: "USER" }).select(
+    "+password"
+  );
+  if (password) {
+    if (!(await _updatedUser.matchPassword(oldPassword))) {
+      return res.status(400).json({ msg: "Mật khẩu chưa chính xác" });
+    }
+    _updatedUser.password = password;
   }
-
-  const _updatedUser = await User.findById(user._id);
-  _updatedUser.password = newPassword;
+  _updatedUser.username = username;
+  _updatedUser.phone = phone;
   _updatedUser.save();
   const token = signToken(user._id);
 
-  return res.status(200).json({ msg: "Đổi mật khẩu thành công", token });
+  return res.status(200).json({ msg: "Cập nhật thông tin thành công", token });
 });
 
-export { getProfile, getUsers, login, register, getById, changePassword };
+export { getProfile, getUsers, login, register, getById, updateProfile };

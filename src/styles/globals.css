@@ -4,6 +4,23 @@
 @tailwind utilities;
 @import "./reset.css";
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 @keyframes transformBgColor {
   from {
     width: 0px;
@@ -28,4 +45,20 @@
 }
 .ant-btn-primary:hover {
   background-color: #000;
+}
+
+.w-inherit {
+  width: inherit;
+}
+
+.RCM_two_level_table1 thead tr th {
+  color: #fff;
+  background-color: #2f9cfc !important;
+}
+.RCM_two_level_table1 thead:hover {
+  color: #fff;
+  background-color: #2f9cfc !important;
+}
+.RCM_two_level_table1 .ant-table-thead th.ant-table-column-sort {
+  background-color: unset;
 }
