@@ -16,7 +16,7 @@ const useLogin = () => {
     onSuccess: async (data) => {
       toast.success(data?.msg);
       localStorage.setItem("token", data.token);
-      window.location.href = pathNames.USER_CREATE_FORM;
+      window.location.href = pathNames.USER_CREATE_REPORT;
     },
   });
 };

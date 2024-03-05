@@ -10,7 +10,7 @@ const Button = (props) => {
   } = props;
   return (
     <button
-      className={`border border-[#493EFF] text-[10px] p-2 rounded-md ${
+      className={`border border-[#493EFF] hover:bg-blue-700 text-[10px] p-2 rounded-md ${
         textSize ? `md:${textSize}` : "md:text-[14px]"
       } ${textColor ? textColor : "text-[#493EFF]"} ${
         bgColor ? bgColor : "bg-white"

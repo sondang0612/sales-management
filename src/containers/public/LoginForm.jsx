@@ -34,8 +34,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="md:w-[30%] w-[80%] bg-white p-5 rounded-md">
-      <h3 className="text-[24px] mb-5 text-center font-bold">
+    <div className="md:w-[30%] w-[80%] bg-blue-100 p-5 rounded-md shadow-md">
+      <h3 className="text-[24px] mb-5 text-center font-bold text-blue-500">
         {isRegister ? "Đăng kí" : "Đăng nhập"}
       </h3>
       <div className="flex flex-col gap-5">
@@ -72,7 +72,7 @@ const LoginForm = () => {
         <Button
           title={isRegister ? "Đăng ký" : "Đăng nhập"}
           textColor="text-white"
-          bgColor="bg-[#2b2b2b]"
+          bgColor="bg-blue-500"
           hover="hover:bg-black"
           onClick={onSubmit}
         />

@@ -89,7 +89,7 @@ const Page = () => {
         onRow={(record) => {
           return {
             onClick: () => {
-              router.push(`/admin/new/users/${record?.key}/salons`);
+              router.push(`${pathNames.ADMIN_USERS}/${record?.key}/salons`);
             },
           };
         }}

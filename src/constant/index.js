@@ -31,7 +31,7 @@ export const MENU_ADMIN_INFORMATION = [
   {
     infor: "Người dùng",
     img: "/images/account.svg",
-    url: "/admin/new/users",
+    url: "/admin/users",
   },
   {
     infor: "Thoát",

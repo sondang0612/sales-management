@@ -56,13 +56,13 @@ const Sidebar = ({ children }) => {
             </p>
             <p
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace(pathNames.USER_CREATE_FORM)}
+              onClick={() => router.replace(pathNames.USER_CREATE_REPORT)}
             >
               Nhập báo cáo
             </p>
             <div
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
-              onClick={() => router.replace(pathNames.USER_ANALYSIS_SALON)}
+              onClick={() => router.replace(pathNames.USER_SALONS)}
             >
               Thống kê
             </div>

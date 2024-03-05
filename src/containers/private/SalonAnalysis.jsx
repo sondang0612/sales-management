@@ -69,7 +69,7 @@ const SalonAnalysis = ({
                         router.push({
                           pathname: `${
                             role === "USER"
-                              ? pathNames.USER_ANALYSIS_SALON
+                              ? pathNames.USER_SALONS
                               : `${pathNames.ADMIN_DASHBOARD_USERS}/${userId}/salons`
                           }/${item?.name}`,
                           query: {

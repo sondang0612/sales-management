@@ -1,6 +1,7 @@
 import SalonReportByMonth from "@/src/components/SalonReportByMonth";
 import { SIZE } from "@/src/constant";
 import useSalonsByUserId from "@/src/react-query/useSalonsByUserId";
+import pathNames from "@/src/utils/pathNames";
 import { Input, Row, Select, Table } from "antd/lib/index";
 import { useRouter } from "next/navigation";
 
@@ -75,8 +76,8 @@ const SalonReportAnalysis = ({ userId, isAdmin }) => {
             onClick: () => {
               router.push(
                 isAdmin
-                  ? `/admin/new/users/${userId}/salons/${record.name}`
-                  : `/user/salons/${record.name}`
+                  ? `${pathNames.ADMIN_USERS}/${userId}/salons/${record.name}`
+                  : `${pathNames.USER_SALONS}/${record.name}`
               );
             },
           };

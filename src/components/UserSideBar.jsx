@@ -11,7 +11,7 @@ const UserSideBar = ({ data, isAdmin }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const logout = () => {
-    router.replace(isAdmin ? "/admin" : pathNames.USER_LOGIN);
+    router.replace(isAdmin ? pathNames.ADMIN_LOGIN : pathNames.USER_LOGIN);
     isAdmin
       ? localStorage.removeItem("token-admin")
       : localStorage.removeItem("token");

@@ -1,11 +1,10 @@
 const pathNames = {
   USER_LOGIN: "/",
-  USER_CREATE_FORM: "/user/create-report",
+  USER_CREATE_REPORT: "/user/create-report",
   USER_PROFILE: "/user/profile",
-  USER_ANALYSIS_SALON: "/user/salons",
-  USER_ANALYSIS_HISTORY: "/user/history",
-  ADMIN_DASHBOARD: "/admin/dashboard",
-  ADMIN_DASHBOARD_USERS: "/admin/dashboard/users",
+  USER_SALONS: "/user/salons",
+  USER_HISTORY: "/user/history",
+  ADMIN_USERS: "/admin/users",
   ADMIN_LOGIN: "/admin",
 };
 

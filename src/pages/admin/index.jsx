@@ -9,14 +9,19 @@ import toast from "react-hot-toast";
 export default function Admin() {
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { mutate: login } = useLoginAdmin();
   const router = useRouter();
+
+  const { mutate: login } = useLoginAdmin({
+    onSuccess: () => {
+      router.replace(pathNames.ADMIN_USERS);
+    },
+  });
 
   React.useEffect(() => {
     const token = localStorage.getItem("token-admin");
     if (token) {
       localStorage.removeItem("token");
-      router.replace(pathNames.ADMIN_DASHBOARD);
+      router.replace(pathNames.ADMIN_USERS);
     }
   }, [router]);
 
@@ -29,37 +34,33 @@ export default function Admin() {
   };
 
   return (
-    <div className="w-screen h-screen bg-[#2b2b2b]">
-      <div className="bg-animation">
-        <div className="absolute">
-          <div className="w-screen h-screen flex items-center justify-center">
-            <div className="md:w-[30%] w-full bg-white p-5 rounded-md">
-              <h3 className="text-[24px] mb-5 text-center font-bold">
-                Đăng nhập
-              </h3>
-              <div className="flex flex-col gap-5">
-                <InputForm
-                  onChange={(e) => setPhone(e.target.value)}
-                  fieldName="phone"
-                  value={phone}
-                  placeholder="SĐT"
-                />
-                <InputForm
-                  onChange={(e) => setPassword(e.target.value)}
-                  fieldName="password"
-                  value={password}
-                  type="password"
-                  placeholder="Mật khẩu"
-                />
-                <Button
-                  title={"Đăng nhập"}
-                  textColor="text-white"
-                  bgColor="bg-[#2b2b2b]"
-                  hover="hover:bg-black"
-                  onClick={onSubmit}
-                />
-              </div>
-            </div>
+    <div className="h-screen bg-[#f2f2f2] flex items-center justify-center">
+      <div className="w-screen h-screen flex items-center justify-center">
+        <div className="md:w-[30%] w-full bg-white p-5 rounded-md shadow-md bg-blue-100">
+          <h3 className="text-[24px] mb-5 text-center font-bold text-blue-500">
+            Đăng nhập
+          </h3>
+          <div className="flex flex-col gap-5">
+            <InputForm
+              onChange={(e) => setPhone(e.target.value)}
+              fieldName="phone"
+              value={phone}
+              placeholder="SĐT"
+            />
+            <InputForm
+              onChange={(e) => setPassword(e.target.value)}
+              fieldName="password"
+              value={password}
+              type="password"
+              placeholder="Mật khẩu"
+            />
+            <Button
+              title={"Đăng nhập"}
+              textColor="text-white"
+              bgColor="bg-blue-500"
+              hover="hover:bg-black"
+              onClick={onSubmit}
+            />
           </div>
         </div>
       </div>

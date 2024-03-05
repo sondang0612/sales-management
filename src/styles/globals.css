@@ -21,25 +21,6 @@ a {
   box-sizing: border-box;
 }
 
-@keyframes transformBgColor {
-  from {
-    width: 0px;
-  }
-  to {
-    width: 100vw;
-  }
-}
-
-.bg-animation {
-  width: 0px;
-  height: 100%;
-  background: #000000;
-  animation-name: transformBgColor;
-  animation-duration: 4s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
 .ant-btn-primary {
   background-color: #333;
 }

@@ -1,6 +1,5 @@
-import { SIZE } from "@/src/constant";
+import { CATEGORIES, SIZE } from "@/src/constant";
 import useDeleteSalonReportById from "@/src/react-query/useDeleteSalonReportById";
-import { categories } from "@/src/utils/constants";
 import { Image, Modal, Row, Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import React from "react";
@@ -50,13 +49,13 @@ const SalonReportHistory = ({ useQuery, name, userId }) => {
       dataIndex: "category",
       render: (_, record) => (
         <div
-          className={`${categories[record.category].textColor} border ${
-            categories[record.category].borderColor
+          className={`${CATEGORIES[record.category].textColor} border ${
+            CATEGORIES[record.category].borderColor
           } ${
-            categories[record.category].bgColor
+            CATEGORIES[record.category].bgColor
           } inline-block px-2 py-1 rounded-md`}
         >
-          {categories[record.category].text}
+          {CATEGORIES[record.category].text}
         </div>
       ),
     },
