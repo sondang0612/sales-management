@@ -1,7 +1,7 @@
 import LoginForm from "@/src/containers/public/LoginForm";
 import { useRouter } from "next/navigation";
 import React from "react";
-import pathNames from "../utils/pathNames";
+import pathNames from "../constant/pathNames";
 
 export default function Home() {
   const router = useRouter();

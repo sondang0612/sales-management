@@ -4,30 +4,12 @@
 
 /* Table and Mobile */
 @media (max-width: 1023px) {
-  .ant-layout-sider {
-    flex: 0 0 30vw !important;
-    max-width: 30vw !important;
-    min-width: 30vw !important;
-    width: 30vw !important;
-  }
 }
 
 /* Tablet */
 @media (min-width: 1024px) and (max-width: 1023px) {
-  .ant-layout-sider {
-    flex: 0 0 30vw !important;
-    max-width: 30vw !important;
-    min-width: 30vw !important;
-    width: 30vw !important;
-  }
 }
 
 /* Mobile */
 @media (max-width: 739px) {
-  .ant-layout-sider {
-    flex: 0 0 30vw !important;
-    max-width: 30vw !important;
-    min-width: 30vw !important;
-    width: 30vw !important;
-  }
 }

@@ -1,6 +1,7 @@
 import AdminLayout from "@/src/components/layout/AdminLayout";
 import SalonReportHistory from "@/src/containers/private/SalonReportHistory";
 import useSalonReportsHistory from "@/src/react-query/useSalonReportsHistory";
+import authAdmin from "@/src/utils/authAdmin";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -18,4 +19,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default authAdmin(Page);

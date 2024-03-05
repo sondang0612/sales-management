@@ -55,7 +55,6 @@ const getUsers = catchAsync(async (req, res) => {
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
   let sort = {};
-
   if (sortBy === "countOrders") {
     sort = { countOrders: -1 };
   } else {
@@ -72,13 +71,12 @@ const getUsers = catchAsync(async (req, res) => {
       },
     },
   ]);
-
   const { users, pagination } = analysis[0];
   return res.status(200).json({
     msg: "Danh sách User",
     data: {
       users,
-      total: pagination[0].total,
+      total: pagination.length !== 0 ? pagination[0].total : 0,
     },
   });
 });

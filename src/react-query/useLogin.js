@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance";
-import pathNames from "../utils/pathNames";
+import pathNames from "../constant/pathNames";
 const login = async (form) => {
   const res = await axiosInstance.post("api/user/login", form);
   return res.data;

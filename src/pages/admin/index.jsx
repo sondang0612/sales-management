@@ -1,7 +1,7 @@
 import InputForm from "@/src/components/InputForm";
 import Button from "@/src/containers/public/Button";
 import useLoginAdmin from "@/src/react-query/useLoginAdmin";
-import pathNames from "@/src/utils/pathNames";
+import pathNames from "@/src/constant/pathNames";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";

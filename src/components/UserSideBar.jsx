@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import pathNames from "../utils/pathNames";
+import pathNames from "../constant/pathNames";
 
 const UserSideBar = ({ data, isAdmin }) => {
   const router = useRouter();
@@ -37,6 +37,7 @@ const UserSideBar = ({ data, isAdmin }) => {
           </Link>
         ) : (
           <li
+            key={i}
             onClick={logout}
             className="flex items-center py-2 px-4 ml-2 space-x-6 hover:text-black hover:bg-[#e3e3e9]  cursor-pointer duration-75"
           >

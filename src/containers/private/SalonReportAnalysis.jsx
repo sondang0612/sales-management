@@ -1,7 +1,7 @@
 import SalonReportByMonth from "@/src/components/SalonReportByMonth";
 import { SIZE } from "@/src/constant";
 import useSalonsByUserId from "@/src/react-query/useSalonsByUserId";
-import pathNames from "@/src/utils/pathNames";
+import pathNames from "@/src/constant/pathNames";
 import { Input, Row, Select, Table } from "antd/lib/index";
 import { useRouter } from "next/navigation";
 

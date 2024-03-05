@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -22,7 +23,12 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.log(error);
+    if (error?.request?.status === 500) {
+      window.location.href = "/";
+      localStorage.removeItem("token");
+      localStorage.removeItem("token-admin");
+      toast.error("Vui lòng đăng nhập lại");
+    }
     return Promise.reject(error);
   }
 );

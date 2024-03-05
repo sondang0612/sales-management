@@ -2,7 +2,7 @@ import AdminLayout from "@/src/components/layout/AdminLayout";
 import { SIZE } from "@/src/constant";
 import useUsers from "@/src/react-query/useUsers";
 import authAdmin from "@/src/utils/authAdmin";
-import pathNames from "@/src/utils/pathNames";
+import pathNames from "@/src/constant/pathNames";
 import { Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";

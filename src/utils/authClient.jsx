@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
-import pathNames from "./pathNames";
+import pathNames from "../constant/pathNames";
 
 const authClient = (Component) => {
   return function ClientOnly({ children, ...rest }) {
