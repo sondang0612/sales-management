@@ -9,7 +9,9 @@ const authClient = (Component) => {
     const [load, setLoad] = React.useState(false);
     const queryClient = useQueryClient();
     const router = useRouter();
-
+    React.useEffect(() => {
+      localStorage.removeItem("token-admin");
+    }, []);
     React.useEffect(() => {
       const token = localStorage.getItem("token");
       if (!token) {

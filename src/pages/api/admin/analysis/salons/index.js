@@ -3,7 +3,6 @@ import * as salonReportController from "@/server/controllers/salonReportControll
 import { protect, restrictAdmin } from "@/server/middlewares/authMiddleware";
 const handler = base()
   .use(protect)
-  .use(restrictAdmin)
   .get(salonReportController.getSalonsByUserId);
 
 export default handler;

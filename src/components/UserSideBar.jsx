@@ -2,26 +2,26 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
 
-import { MENU_USER_INFORMATION } from "@/src/constant";
-import pathNames from "../utils/pathNames";
-import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import pathNames from "../utils/pathNames";
 
-const UserSideBar = () => {
+const UserSideBar = ({ data, isAdmin }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const logout = () => {
-    router.replace(pathNames.USER_LOGIN);
-    localStorage.removeItem("token");
-    toast.error("Tài khoản hết hạn!!");
+    router.replace(isAdmin ? "/admin" : pathNames.USER_LOGIN);
+    isAdmin
+      ? localStorage.removeItem("token-admin")
+      : localStorage.removeItem("token");
+    toast.success("Đăng xuất thành công!!");
     queryClient.removeQueries();
   };
   // console.log(router);
   return (
     <ul>
-      {MENU_USER_INFORMATION.map(({ infor, img, url, isLogout }, i) => {
+      {data.map(({ infor, img, url, isLogout }, i) => {
         return !isLogout ? (
           <Link href={`${url}`} passHref key={i}>
             <li

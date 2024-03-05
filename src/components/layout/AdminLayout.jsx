@@ -1,21 +1,10 @@
-import { Breadcrumb, Col, Image, Row } from "antd/lib/index";
-import Link from "next/link";
 import UserSideBar from "@/src/components/UserSideBar";
-import useProfile from "@/src/react-query/useProfile";
-import { MENU_USER_INFORMATION } from "@/src/constant";
-const UserLayout = ({ title, children }) => {
-  const { data: profile } = useProfile();
+import { MENU_ADMIN_INFORMATION } from "@/src/constant";
+import { Col, Image, Row } from "antd/lib/index";
+const AdminLayout = ({ title, children }) => {
   return (
     <div className="min-h-[calc(100vh)] bg-[#f0f2f5] ">
-      <div className="pt-5 ml-4 bg-[#f0f2f5]">
-        <Breadcrumb separator=">">
-          <Breadcrumb.Item>
-            <Link href="/">
-              <p className="hover:text-blue-500">Trang chủ</p>
-            </Link>
-          </Breadcrumb.Item>
-        </Breadcrumb>
-      </div>
+      <div className="pt-5 ml-4 bg-[#f0f2f5]"></div>
       <div className="mt-3 bg-[#f0f2f5]">
         <Row>
           <Col flex="200px">
@@ -31,11 +20,11 @@ const UserLayout = ({ title, children }) => {
               </Col>
               <Col flex="1 1 0%">
                 <h4 className="text-sm text-gray-500"> Account </h4>
-                <h3 className="text-base text-gray-700">{profile?.username}</h3>
+                <h3 className="text-base text-gray-700">ADMIN</h3>
               </Col>
             </Row>
             <div className="mt-3">
-              <UserSideBar data={MENU_USER_INFORMATION} />
+              <UserSideBar data={MENU_ADMIN_INFORMATION} isAdmin />
             </div>
           </Col>
           <Col flex="1 1 0%">
@@ -48,4 +37,4 @@ const UserLayout = ({ title, children }) => {
   );
 };
 
-export default UserLayout;
+export default AdminLayout;

@@ -14,7 +14,10 @@ export default function Admin() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("token-admin");
-    if (token) router.replace(pathNames.ADMIN_DASHBOARD);
+    if (token) {
+      localStorage.removeItem("token");
+      router.replace(pathNames.ADMIN_DASHBOARD);
+    }
   }, [router]);
 
   const onSubmit = () => {

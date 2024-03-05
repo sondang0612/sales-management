@@ -1,4 +1,5 @@
-import Sidebar from "@/src/containers/private/admin/Sidebar";
+import AdminLayout from "@/src/components/layout/AdminLayout";
+import { SIZE } from "@/src/constant";
 import useUsers from "@/src/react-query/useUsers";
 import authAdmin from "@/src/utils/authAdmin";
 import pathNames from "@/src/utils/pathNames";
@@ -6,7 +7,6 @@ import { Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import React from "react";
-
 const columns = [
   {
     title: "Tên",
@@ -49,10 +49,10 @@ const rowSelection = {
   // }),
 };
 
-const Users = () => {
+const Page = () => {
   const [page, setPage] = React.useState(0);
   const [filter, setFilter] = React.useState("newest");
-  const { data: usersPage } = useUsers({ page, size: 5, sortBy: filter });
+  const { data: usersPage } = useUsers({ page, size: SIZE, sortBy: filter });
   const router = useRouter();
   const formatData = React.useMemo(() => {
     return usersPage?.users?.map((user) => ({
@@ -65,17 +65,14 @@ const Users = () => {
   }, [usersPage]);
 
   return (
-    <div className="flex flex-col my-2 mx-1">
-      <div className="w-[15%]">
-        <Select
-          style={{ width: "100%", textAlign: "start" }}
-          value={filter}
-          onChange={(value) => setFilter(value)}
-        >
-          <Select.Option value="newest">Vừa tạo</Select.Option>
-          <Select.Option value="countOrders">Ra đơn nhiều nhất</Select.Option>
-        </Select>
-      </div>
+    <AdminLayout title="Danh sách Sales">
+      <Select
+        className="w-1/5 text-start mb-2"
+        value={filter}
+        onChange={(value) => setFilter(value)}
+      >
+        <Select.Option value="newest">Vừa tạo</Select.Option>
+      </Select>
       <Table
         tableLayout="auto"
         scroll={{ x: "max-content" }}
@@ -92,7 +89,7 @@ const Users = () => {
         onRow={(record) => {
           return {
             onClick: () => {
-              router.push(`${pathNames.ADMIN_DASHBOARD_USERS}/${record?.key}`);
+              router.push(`/admin/new/users/${record?.key}/salons`);
             },
           };
         }}
@@ -101,8 +98,8 @@ const Users = () => {
           type: "checkbox",
         }}
       />
-    </div>
+    </AdminLayout>
   );
 };
 
-export default authAdmin(Users);
+export default authAdmin(Page);

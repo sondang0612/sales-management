@@ -1,15 +1,11 @@
-import UserLayout from "@/src/components/layout/UserLayout";
 import { SIZE } from "@/src/constant";
 import useDeleteSalonReportById from "@/src/react-query/useDeleteSalonReportById";
-import useProfile from "@/src/react-query/useProfile";
-import useSalonReportsHistory from "@/src/react-query/useSalonReportsHistory";
 import { categories } from "@/src/utils/constants";
 import { Image, Modal, Row, Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import React from "react";
 import toast from "react-hot-toast";
-const SalonReportHistory = ({ useQuery, title, name }) => {
-  const { data: profile } = useProfile();
+const SalonReportHistory = ({ useQuery, name, userId }) => {
   const [page, setPage] = React.useState(0);
   const { mutate: deleteSalonById } = useDeleteSalonReportById({
     onSuccess: () => {
@@ -21,7 +17,7 @@ const SalonReportHistory = ({ useQuery, title, name }) => {
   const [filterValue, setFilterValue] = React.useState("all");
   const { data: salonReports } = useQuery({
     page,
-    userId: profile?._id,
+    userId,
     from: dateFrom,
     to: dateTo,
     name,
@@ -115,7 +111,7 @@ const SalonReportHistory = ({ useQuery, title, name }) => {
   }, [filterValue]);
 
   return (
-    <UserLayout title={title}>
+    <>
       <Select
         className="w-[20%] mb-2"
         value={filterValue}
@@ -179,7 +175,7 @@ const SalonReportHistory = ({ useQuery, title, name }) => {
           </div>
         </Row>
       </Modal>
-    </UserLayout>
+    </>
   );
 };
 

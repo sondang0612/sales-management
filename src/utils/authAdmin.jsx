@@ -10,6 +10,10 @@ const authAdmin = (Component) => {
     const router = useRouter();
 
     React.useEffect(() => {
+      localStorage.removeItem("token");
+    }, []);
+
+    React.useEffect(() => {
       const token = localStorage.getItem("token-admin");
       if (!token) {
         router.replace("/");
@@ -20,9 +24,7 @@ const authAdmin = (Component) => {
     }, [router, queryClient]);
 
     return load ? (
-      <Sidebar>
-        <Component {...rest}>{children}</Component>
-      </Sidebar>
+      <Component {...rest}>{children}</Component>
     ) : (
       <div>Loading...</div>
     );

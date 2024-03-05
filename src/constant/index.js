@@ -27,6 +27,20 @@ export const MENU_USER_INFORMATION = [
   },
 ];
 
+export const MENU_ADMIN_INFORMATION = [
+  {
+    infor: "Người dùng",
+    img: "/images/account.svg",
+    url: "/admin/new/users",
+  },
+  {
+    infor: "Thoát",
+    img: "/images/logout.svg",
+    url: "/",
+    isLogout: true,
+  },
+];
+
 export const SALON_CATEGORIES = [
   {
     value: "no-account",
@@ -41,5 +55,26 @@ export const SALON_CATEGORIES = [
     label: " Chăm sóc đã có account",
   },
 ];
+
+export const CATEGORIES = {
+  "no-account": {
+    text: "Salon mới tiếp cận (Chưa có account)",
+    bgColor: "bg-red-100",
+    textColor: "text-red-500",
+    borderColor: "border-red-500",
+  },
+  "re-take-care-no-account": {
+    text: "Salon mới (chăm sóc lại)",
+    bgColor: "bg-yellow-100",
+    textColor: "text-yellow-500",
+    borderColor: "border-yellow-500",
+  },
+  "re-take-care-have-account": {
+    text: "Chăm sóc (đã có account)",
+    bgColor: "bg-green-100",
+    textColor: "text-green-500",
+    borderColor: "border-green-500",
+  },
+};
 
 export const SIZE = 6;

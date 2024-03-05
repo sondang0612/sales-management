@@ -165,9 +165,6 @@ const getSalonsByUserId = catchAsync(async (req, res) => {
   const { data, pagination } = salons[0];
 
   const dataResult = data?.map((item) => item._id);
-  dataResult.push(
-    ...Array.from(Array(Math.abs(limit - dataResult.length)), (_) => null)
-  );
   const totalPages = pagination.length !== 0 ? pagination[0].total / limit : 0;
 
   res.status(200).json({

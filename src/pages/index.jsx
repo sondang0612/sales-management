@@ -7,7 +7,9 @@ export default function Home() {
   const router = useRouter();
   React.useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) router.replace(pathNames.USER_CREATE_FORM);
+    if (token) {
+      router.replace(pathNames.USER_CREATE_FORM);
+    }
   }, [router]);
   return (
     <div className="w-screen h-screen bg-[#2b2b2b]">
