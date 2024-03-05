@@ -90,4 +90,19 @@ const getById = catchAsync(async (req, res) => {
   return res.status(200).json({ data: user });
 });
 
-export { getProfile, getUsers, login, register, getById };
+const changePassword = catchAsync(async (req, res) => {
+  const user = req.user;
+  const { newPassword } = req.body;
+  if (!newPassword) {
+    return res.status(400).json({ msg: "Vui lòng nhập đủ thông tin" });
+  }
+
+  const _updatedUser = await User.findById(user._id);
+  _updatedUser.password = newPassword;
+  _updatedUser.save();
+  const token = signToken(user._id);
+
+  return res.status(200).json({ msg: "Đổi mật khẩu thành công", token });
+});
+
+export { getProfile, getUsers, login, register, getById, changePassword };

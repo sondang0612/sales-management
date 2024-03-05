@@ -14,7 +14,6 @@ const SalonReportBySalonTable = ({
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedSalon, setSelectedSalon] = React.useState(null);
   const onRowClick = (salon) => {
-    console.log(salon);
     setSelectedSalon(salon);
     setOpenModal(true);
   };

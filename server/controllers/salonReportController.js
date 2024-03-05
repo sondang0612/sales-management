@@ -31,7 +31,6 @@ const getMySalons = catchAsync(async (req, res) => {
   const { page = 0, size = 5, searchText, year } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
-
   const salons = await SalonReport.aggregate([
     {
       $match: {
@@ -104,15 +103,32 @@ const getAllMySalons = catchAsync(async (req, res) => {
 
 const getSalonReportAnalysisByName = catchAsync(async (req, res) => {
   const user = req?.user;
-  const { name, userId } = req.query;
+  const { name, userId, year } = req.query;
   let match = {};
   if (userId) {
-    match = { user: new mongoose.Types.ObjectId(userId), name };
+    match = {
+      user: new mongoose.Types.ObjectId(userId),
+      name,
+      createdAt: {
+        $gte: new Date(`${year}-01-01T00:00:00Z`),
+        $lte: new Date(`${year}-12-31T00:00:00Z`),
+      },
+    };
   } else {
-    match = { name, user: user._id };
+    match = {
+      name,
+      user: user._id,
+      createdAt: {
+        $gte: new Date(`${year}-01-01T00:00:00Z`),
+        $lte: new Date(`${year}-12-31T00:00:00Z`),
+      },
+    };
   }
+
   const salons = await SalonReport.aggregate([
-    { $match: match },
+    {
+      $match: match,
+    },
     {
       $group: {
         _id: {
@@ -135,7 +151,6 @@ const getSalonsByUserId = catchAsync(async (req, res) => {
   const { page = 0, size = 5, searchText, year } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
-  console.log(year);
   const salons = await SalonReport.aggregate([
     {
       $match: {
@@ -183,7 +198,7 @@ const getSalonsByUserId = catchAsync(async (req, res) => {
 
 const getSalonReportsBySalon = catchAsync(async (req, res) => {
   const user = req.user;
-  const { page = 0, size = 5, name, address, phone } = req.query;
+  const { page = 0, size = 5, name, address, phone, year } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
   const salons = await SalonReport.aggregate([
@@ -237,6 +252,7 @@ const getSalonReportsBySalonAndUserId = catchAsync(async (req, res) => {
   const { page = 0, size = 5, name, address, phone, id: userId } = req.query;
   const skip = +page === 0 ? 0 : +page * +size;
   const limit = +size;
+
   const salons = await SalonReport.aggregate([
     {
       $match: {

@@ -31,6 +31,7 @@ const Page = () => {
         userId={router.query?.id}
         setSearchText={setSearchText}
         setYear={setYear}
+        year={year}
         role="ADMIN"
       />
     </div>

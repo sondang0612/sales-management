@@ -6,6 +6,7 @@ const queryKeys = {
   useSalonReportBySalon: "useSalonReportBySalon",
   useSalonReportBySalonAndUserId: "useSalonReportBySalonAndUserId",
   useSalonReportAnalysisBySalon: "useSalonReportAnalysisBySalon",
+  useSalonReportAnalysisByName: "useSalonReportAnalysisByName",
   useUsers: "useUsers",
   useUser: "useUser",
   useSalonsByUserId: "useSalonsByUserId",

@@ -50,6 +50,12 @@ const Sidebar = ({ children }) => {
           <div className="flex flex-col">
             <p
               className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
+              onClick={() => router.replace(pathNames.USER_PROFILE)}
+            >
+              Trang cá nhân
+            </p>
+            <p
+              className="text-white hover:bg-black px-5 cursor-pointer md:text-[14px] text-[10px]"
               onClick={() => router.replace(pathNames.USER_CREATE_FORM)}
             >
               Nhập báo cáo

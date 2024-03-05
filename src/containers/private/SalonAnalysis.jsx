@@ -11,6 +11,7 @@ const SalonAnalysis = ({
   userId,
   setSearchText,
   setYear,
+  year,
   role = "USER",
 }) => {
   const router = useRouter();
@@ -34,11 +35,11 @@ const SalonAnalysis = ({
           >
             {[...Array(10).keys()].map((item) => (
               <option
-                value={`${2024 + item}`}
-                key={`${2024 + item}`}
+                value={`${2023 + item}`}
+                key={`${2023 + item}`}
                 className="text-black"
               >
-                {2024 + item}
+                {2023 + item}
               </option>
             ))}
           </select>
@@ -83,9 +84,15 @@ const SalonAnalysis = ({
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
                     >
-                      {item?.name}
+                      {item?.name?.length > 15
+                        ? `${item?.name?.slice(0, 15)}...`
+                        : item?.name}
                     </th>
-                    <Salon12Months name={item?.name} userId={userId} />
+                    <Salon12Months
+                      name={item?.name}
+                      userId={userId}
+                      year={year}
+                    />
                   </tr>
                 ))}
             </tbody>
@@ -125,7 +132,7 @@ const SalonAnalysis = ({
           </div>
         </div>
       </div>
-      <div className="mb-5 left-0 bg-white p-4 inline-flex rounded-md mx-5 gap-2 flex-col md:text-[14px] text-[8px]">
+      <div className="float-left mb-5 left-0 bg-white p-4 inline-flex rounded-md mx-5 gap-2 flex-col md:text-[14px] text-[8px]">
         <div className="flex flex-row items-center gap-1">
           <div className="size-[20px] bg-red-500 rounded-md" />
           <p className="text-black">Salon mới tiếp cận (Chưa có account)</p>

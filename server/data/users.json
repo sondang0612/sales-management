@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "65e548107858a21cd633707d",
+    "phone": "0901567098",
+    "password": "$2b$12$5KCaCYwFyh1JhQ4vZ5gIOea1TIu4FokgEdw2mu8aETWzbuQkaAl7K",
+    "username": "Phương"
+  },
+  {
+    "_id": "65e548107858a21cd633707f",
+    "phone": "0901798227",
+    "password": "$2b$12$7cfF3PivmyB1mOqj18leNOJ5anb5baq6lAj/F8M03MrVXvkRS.H6m",
+    "username": "Khánh"
+  },
+  {
+    "_id": "65e548117858a21cd6337081",
+    "password": "$2b$12$imt2YBZ3OKMwJnerb2xpROcItugJDs958wZaUvtxsk3WAS2MfkdCO",
+    "phone": "0964952572",
+    "username": "My"
+  },
+  {
+    "_id": "65e548117858a21cd6337082",
+    "password": "$2b$12$imt2YBZ3OKMwJnerb2xpROcItugJDs958wZaUvtxsk3WAS2MfkdCO",
+    "phone": "0917474684",
+    "username": "Nhung"
+  }
+]

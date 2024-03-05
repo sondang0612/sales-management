@@ -16,6 +16,7 @@ const AnalysisPage = () => {
         setPage={setPage}
         setSearchText={setSearchText}
         setYear={setYear}
+        year={year}
       />
     </>
   );
