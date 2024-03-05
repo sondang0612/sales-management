@@ -4,7 +4,7 @@ import { Image, Modal, Row, Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import React from "react";
 import toast from "react-hot-toast";
-const SalonReportHistory = ({ useQuery, name, userId }) => {
+const SalonReportHistory = ({ useQuery, name, userId, isDelete = true }) => {
   const [page, setPage] = React.useState(0);
   const { mutate: deleteSalonById } = useDeleteSalonReportById({
     onSuccess: () => {
@@ -59,22 +59,24 @@ const SalonReportHistory = ({ useQuery, name, userId }) => {
         </div>
       ),
     },
-    {
-      title: "Hành động",
-      dataIndex: "",
-      key: "x",
-      render: (record) => (
-        <a
-          className="text-red-500 hover:text-red-500 underline"
-          onClick={() => {
-            deleteSalonById(record._id);
-            toast.success("Xóa");
-          }}
-        >
-          Xóa
-        </a>
-      ),
-    },
+    isDelete
+      ? {
+          title: "Hành động",
+          dataIndex: "",
+          key: "x",
+          render: (record) => (
+            <a
+              className="text-red-500 hover:text-red-500 underline"
+              onClick={() => {
+                deleteSalonById(record._id);
+                toast.success("Xóa");
+              }}
+            >
+              Xóa
+            </a>
+          ),
+        }
+      : {},
   ]);
   const [openModal, setOpenModal] = React.useState(false);
 

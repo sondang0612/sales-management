@@ -17,7 +17,7 @@ const useSalonAnalysisByNameAndMonthAtYear = ({
 }) => {
   return useQuery({
     queryKey: [
-      queryKeys.useSalonReportAnalysisByName,
+      queryKeys.useSalonAnalysisByNameAndMonthAtYear,
       { name, userId, year, month },
     ],
     queryFn: () => queryFn({ name, userId, year, month }),

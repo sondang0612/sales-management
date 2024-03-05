@@ -11,7 +11,7 @@ const Page = () => {
   const { data: profile } = useProfile();
 
   return (
-    <UserLayout title="Lịch sử báo cáo">
+    <UserLayout title={`Lịch sử báo cáo của ${router?.query?.name}`}>
       <SalonReportHistory
         name={router.query?.name}
         useQuery={useSalonReportsHistory}

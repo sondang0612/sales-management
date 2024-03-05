@@ -4,7 +4,7 @@ import axiosInstance from "../utils/axiosInstance";
 import queryKeys from "./queryKeys";
 const getUsers = async ({ page, size, sortBy }) => {
   const res = await axiosInstance.get(
-    `api/admin/getUsers?page=${page}&size=${size}&sortBy=${sortBy}`
+    `api/admin/users?page=${page}&size=${size}&sortBy=${sortBy}`
   );
   return res.data.data;
 };

@@ -6,14 +6,17 @@ import { Input, Row, Select, Table } from "antd/lib/index";
 import { useRouter } from "next/navigation";
 
 import React from "react";
+import Description from "@/src/components/Description";
 const SalonReportAnalysis = ({ userId, isAdmin }) => {
   const [searchText, setSearchText] = React.useState("");
   const [year, setYear] = React.useState("2024");
+  const [page, setPage] = React.useState(0);
   const router = useRouter();
   const { data: mySalons } = useSalonsByUserId({
-    page: 0,
+    page: page,
     size: SIZE,
     year,
+    page,
     searchText,
     userId,
   });
@@ -71,6 +74,13 @@ const SalonReportAnalysis = ({ userId, isAdmin }) => {
         className="RCM_two_level_table1"
         dataSource={formatData}
         columns={columns}
+        pagination={{
+          pageSize: SIZE,
+          total: mySalons?.totalPages * SIZE,
+          onChange: (page) => {
+            setPage(page - 1);
+          },
+        }}
         onRow={(record) => {
           return {
             onClick: () => {
@@ -83,6 +93,7 @@ const SalonReportAnalysis = ({ userId, isAdmin }) => {
           };
         }}
       />
+      <Description />
     </>
   );
 };

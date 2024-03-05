@@ -15,9 +15,7 @@ const useDeleteSalonReportById = () => {
       toast.error(error?.response?.data?.msg || "Lỗi từ server");
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries(queryKeys.useMySalons);
-      queryClient.invalidateQueries(queryKeys.useMySalonReports);
-      queryClient.invalidateQueries(queryKeys.useSalonReportBySalon);
+      queryClient.invalidateQueries(queryKeys.useSalonsByUserId);
       queryClient.invalidateQueries(queryKeys.useSalonReportsHistory);
     },
   });

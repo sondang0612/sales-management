@@ -36,7 +36,7 @@ export default function Admin() {
   return (
     <div className="h-screen bg-[#f2f2f2] flex items-center justify-center">
       <div className="w-screen h-screen flex items-center justify-center">
-        <div className="md:w-[30%] w-full bg-white p-5 rounded-md shadow-md bg-blue-100">
+        <div className="md:w-[30%] w-full p-5 rounded-md shadow-md bg-blue-100">
           <h3 className="text-[24px] mb-5 text-center font-bold text-blue-500">
             Đăng nhập
           </h3>

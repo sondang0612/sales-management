@@ -9,11 +9,12 @@ const Page = () => {
   const router = useRouter();
   const { id: userId, name } = router.query;
   return (
-    <AdminLayout title="Lịch sử báo cáo">
+    <AdminLayout title={`Lịch sử báo cáo ${name}`}>
       <SalonReportHistory
         name={name}
         useQuery={useSalonReportsHistory}
         userId={userId}
+        isDelete={false}
       />
     </AdminLayout>
   );

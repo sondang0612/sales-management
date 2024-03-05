@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
-import Sidebar from "../containers/private/admin/Sidebar";
 
 const authAdmin = (Component) => {
   return function AdminOnly({ children, ...rest }) {
