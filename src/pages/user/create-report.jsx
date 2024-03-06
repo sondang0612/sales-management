@@ -1,12 +1,13 @@
+import SelectImageFiles from "@/src/components/SelectImageFiles";
 import UserLayout from "@/src/components/layout/UserLayout";
 import { SALON_CATEGORIES } from "@/src/constant";
 import useAllMySalons from "@/src/react-query/useAllMySalons";
 import useCreateSalonReport from "@/src/react-query/useCreateSalonReport";
 import useProfile from "@/src/react-query/useProfile";
-import useUpdateProfile from "@/src/react-query/useUpdateProfile";
 import authClient from "@/src/utils/authClient";
+import { uploadImages } from "@/src/utils/upload";
 import Form from "antd/lib/form/Form";
-import { Button, Select } from "antd/lib/index";
+import { Button, Select, Upload } from "antd/lib/index";
 import Input from "antd/lib/input/Input";
 import React from "react";
 import toast from "react-hot-toast";
@@ -14,21 +15,25 @@ const { TextArea } = Input;
 
 const Page = () => {
   const [form] = Form.useForm();
+  const { data: profile } = useProfile();
+  const [uploading, setUploading] = React.useState(false);
+  const [localImages, setLocalImages] = React.useState([]);
   const ref = React.useRef(null);
   const { data: mySalons } = useAllMySalons();
   const [isOldSalon, setIsOldSalon] = React.useState(false);
-  const { mutate: createSalonReport, isPending: isLoadingCreateSalonReport } =
-    useCreateSalonReport({
-      onSuccess: () => {
-        form.setFieldsValue({
-          ...form.getFieldsValue(),
-          name: "",
-          phone: "",
-          address: "",
-          content: "",
-        });
-      },
-    });
+  const { mutate: createSalonReport } = useCreateSalonReport({
+    onSuccess: () => {
+      form.setFieldsValue({
+        ...form.getFieldsValue(),
+        name: "",
+        phone: "",
+        address: "",
+        content: "",
+      });
+      setLocalImages([]);
+      setUploading(false);
+    },
+  });
 
   const arrayFormAccount = React.useMemo(
     () => [
@@ -94,20 +99,37 @@ const Page = () => {
         component: <TextArea className="rounded-md" rows={4} />,
       },
       {
+        label: "Ảnh kệ",
+        labelAlign: "left",
+        className: "",
+        component: (
+          <Upload
+            accept=".png,.jpg"
+            multiple
+            onChange={(info) => {
+              setLocalImages(info.fileList);
+            }}
+            fileList={localImages}
+          >
+            <Button>Tải hình</Button>
+          </Upload>
+        ),
+      },
+      {
         component: (
           <Button
             type="primary"
             htmlType="submit"
             className="rounded-md hover:bg-blue-500 bg-blue-400"
-            loading={isLoadingCreateSalonReport}
-            disabled={isLoadingCreateSalonReport}
+            loading={uploading}
+            disabled={uploading}
           >
             Nộp
           </Button>
         ),
       },
     ],
-    [mySalons, isOldSalon, isLoadingCreateSalonReport]
+    [mySalons, isOldSalon, localImages, uploading]
   );
 
   const renderForm = ({ component, ...itemProps }, i) => {
@@ -122,8 +144,17 @@ const Page = () => {
     console.log(errorInfo);
   };
 
-  const onFinish = (data) => {
-    createSalonReport(data);
+  const onFinish = async (data) => {
+    setUploading(true);
+    if (localImages.length === 0) {
+      toast.error("Vui lòng chọn ảnh kệ");
+      return undefined;
+    }
+    const images = await uploadImages(
+      localImages,
+      `${profile?.username}/${data.name}`
+    );
+    createSalonReport({ ...data, images });
   };
 
   const onFormValuesChangeHandler = (changedValues, values) => {

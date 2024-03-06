@@ -6,6 +6,7 @@ const SelectImageFiles = ({ onChange, isSuccess }) => {
   const handleChangeFiles = async (e) => {
     e.stopPropagation();
     const files = [...e.target.files];
+    console.log(files);
     const formatFiles = files.map((file) => URL.createObjectURL(file));
     setImages(formatFiles);
     onChange(files);
@@ -21,10 +22,7 @@ const SelectImageFiles = ({ onChange, isSuccess }) => {
 
   return (
     <div>
-      <div className="flex flex-row gap-2 items-center mb-2 ">
-        <label className="text-[10px] md:text-sm font-medium text-gray-900">
-          Ảnh kệ (6 tấm)
-        </label>
+      <div className="flex flex-row gap-2 items-center mb-2">
         <input
           accept="image/*"
           type="file"
@@ -36,9 +34,9 @@ const SelectImageFiles = ({ onChange, isSuccess }) => {
       <div className="mb-2 flex flex-row flex-wrap gap-2">
         {images?.map((image, index) => (
           <div key={index} className="relative">
-            <img src={image} alt="test" className="rounded-sm size-[40px]" />
+            <img src={image} alt="test" className="rounded-sm size-[100px]" />
             <div
-              className="cursor-pointer size-[20px] bg-[#333] absolute top-0 right-0  flex items-center justify-center rounded-full"
+              className="cursor-pointer size-[20px] bg-[#333] text-white absolute top-1 right-1  flex items-center justify-center rounded-full"
               onClick={() => deleteImage(image)}
             >
               x

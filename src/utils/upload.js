@@ -3,7 +3,10 @@ const uploadImages = async (files, folder) => {
   const upload_preset = process.env.NEXT_PUBLIC_UPLOAD_ASSETS_NAME;
   if (!upload_preset) return undefined;
   const formData = new FormData();
-  const fileArrays = Object.keys(files).map((key) => [key, files[key]]);
+  const fileArrays = Object.keys(files).map((key) => [
+    key,
+    key === 0 ? files[key] : files[key].originFileObj,
+  ]);
   let images = [];
   formData.append("upload_preset", upload_preset);
   formData.append("folder", folder);

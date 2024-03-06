@@ -22,7 +22,9 @@ const initialFormData = {
 const FormSteps = () => {
   const [step, setStep] = React.useState(0);
   const [formData, setFormData] = React.useState([initialFormData]);
-  const { mutate: createSalonReport, isSuccess } = useCreateSalonReport();
+  const { mutate: createSalonReport, isSuccess } = useCreateSalonReport({
+    onSuccess: () => console.log("hello"),
+  });
   const [modal, setModal] = React.useState(false);
   const { data: mySalons } = useAllMySalons();
   const validate = ({

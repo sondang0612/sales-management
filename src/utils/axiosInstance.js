@@ -23,12 +23,12 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error?.request?.status === 500) {
-      window.location.href = "/";
-      localStorage.removeItem("token");
-      localStorage.removeItem("token-admin");
-      toast.error("Vui lòng đăng nhập lại");
-    }
+    // if (error?.request?.status === 500) {
+    //   window.location.href = "/";
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("token-admin");
+    //   toast.error("Vui lòng đăng nhập lại");
+    // }
     return Promise.reject(error);
   }
 );
