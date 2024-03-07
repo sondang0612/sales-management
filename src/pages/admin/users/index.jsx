@@ -52,7 +52,11 @@ const rowSelection = {
 const Page = () => {
   const [page, setPage] = React.useState(0);
   const [filter, setFilter] = React.useState("newest");
-  const { data: usersPage } = useUsers({ page, size: SIZE, sortBy: filter });
+  const { data: usersPage, isPending: isPendingUsers } = useUsers({
+    page,
+    size: SIZE,
+    sortBy: filter,
+  });
   const router = useRouter();
   const formatData = React.useMemo(() => {
     return usersPage?.users?.map((user) => ({
@@ -74,6 +78,7 @@ const Page = () => {
         <Select.Option value="newest">Vừa tạo</Select.Option>
       </Select>
       <Table
+        loading={isPendingUsers}
         tableLayout="auto"
         scroll={{ x: "max-content" }}
         dataSource={formatData}

@@ -12,14 +12,15 @@ const SalonReportAnalysis = ({ userId, isAdmin }) => {
   const [year, setYear] = React.useState("2024");
   const [page, setPage] = React.useState(0);
   const router = useRouter();
-  const { data: mySalons } = useSalonsByUserId({
-    page: page,
-    size: SIZE,
-    year,
-    page,
-    searchText,
-    userId,
-  });
+  const { data: mySalons, isPending: isPendingSalonsByUserId } =
+    useSalonsByUserId({
+      page: page,
+      size: SIZE,
+      year,
+      page,
+      searchText,
+      userId,
+    });
 
   const formatData = React.useMemo(() => {
     return mySalons?.salons?.map((item) => ({
@@ -71,6 +72,7 @@ const SalonReportAnalysis = ({ userId, isAdmin }) => {
         </Select>
       </Row>
       <Table
+        loading={isPendingSalonsByUserId}
         className="RCM_two_level_table1"
         dataSource={formatData}
         columns={columns}

@@ -14,7 +14,7 @@ const SalonReportHistory = ({ useQuery, name, userId, isDelete = true }) => {
   const [dateFrom, setDateFrom] = React.useState(undefined);
   const [dateTo, setDateTo] = React.useState(undefined);
   const [filterValue, setFilterValue] = React.useState("all");
-  const { data: salonReports } = useQuery({
+  const { data: salonReports, isPending: isPendingQuery } = useQuery({
     page,
     userId,
     from: dateFrom,
@@ -123,6 +123,7 @@ const SalonReportHistory = ({ useQuery, name, userId, isDelete = true }) => {
         <Select.Option value="last_day">Hôm qua</Select.Option>
       </Select>
       <Table
+        loading={isPendingQuery}
         dataSource={formatData}
         columns={columns}
         className="RCM_two_level_table1"
