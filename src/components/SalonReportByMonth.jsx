@@ -1,15 +1,16 @@
 import React from "react";
 import useSalonAnalysisByNameAndMonthAtYear from "../react-query/useSalonAnalysisByNameAndMonthAtYear";
 import Status from "./Status";
+import { Spin } from "antd/lib/index";
 
 const SalonReportByMonth = ({ name, month, userId, year }) => {
-  const { data: analysis } = useSalonAnalysisByNameAndMonthAtYear({
+  const { data: analysis, isPending } = useSalonAnalysisByNameAndMonthAtYear({
     name,
     month,
     userId,
     year,
   });
-  return (
+  return !isPending ? (
     <div>
       {analysis?.data?.map((item) => (
         <Status
@@ -19,6 +20,8 @@ const SalonReportByMonth = ({ name, month, userId, year }) => {
         />
       ))}
     </div>
+  ) : (
+    <Spin size="small" />
   );
 };
 
