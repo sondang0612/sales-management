@@ -1,7 +1,6 @@
+import { catchAsync } from "@/src/utils/catchAsync";
+import User from "../models/User";
 import { signToken } from "./userController";
-
-const { catchAsync } = require("@/src/utils/catchAsync");
-const { default: User } = require("../models/User");
 
 const login = catchAsync(async (req, res) => {
   const { phone, password } = req.body;
