@@ -7,6 +7,7 @@ const Button = (props) => {
     textColor,
     textSize,
     hover,
+    disabled,
   } = props;
   return (
     <button
@@ -16,8 +17,9 @@ const Button = (props) => {
         bgColor ? bgColor : "bg-white"
       } ${hover && hover}`}
       onClick={onClick}
+      disabled={disabled}
     >
-      {title}
+      {disabled ? "Xin Đợi giây lát..." : title}
     </button>
   );
 };

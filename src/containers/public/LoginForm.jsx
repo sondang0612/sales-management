@@ -9,8 +9,8 @@ const LoginForm = () => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [username, setUsername] = React.useState("");
-  const { mutate: login } = useLogin();
-  const { mutate: register } = useRegister();
+  const { mutate: login, isPending: isPendingLogin } = useLogin();
+  const { mutate: register, isPending: isPendingRegister } = useRegister();
 
   React.useEffect(() => {
     setPhone("");
@@ -75,6 +75,7 @@ const LoginForm = () => {
           bgColor="bg-blue-500"
           hover="hover:bg-black"
           onClick={onSubmit}
+          disabled={isPendingLogin || isPendingRegister}
         />
       </div>
 
