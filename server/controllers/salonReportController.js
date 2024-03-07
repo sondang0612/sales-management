@@ -219,11 +219,6 @@ const deleteById = catchAsync(async (req, res) => {
     _id: new mongoose.Types.ObjectId(id),
   });
 
-  if (report.category === "re-take-care-have-account") {
-    user.countOrders -= 1;
-    user.save();
-  }
-
   return res.status(204).json({ data: null, msg: "Xóa thành công" });
 });
 
@@ -357,6 +352,17 @@ const getAnalysisByNameAndMonthAtYear = catchAsync(async (req, res) => {
   });
 });
 
+const getTotalSuccessOrders = catchAsync(async (req, res) => {
+  const { userId } = req.query;
+  const salons = await SalonReport.find({
+    user: new mongoose.Types.ObjectId(userId),
+    category: "re-take-care-have-account",
+  }).exec();
+  return res
+    .status(200)
+    .json({ data: salons?.length || 0, msg: "Thành công!!!" });
+});
+
 export {
   create,
   deleteById,
@@ -368,4 +374,5 @@ export {
   getSalonReportsHistory,
   getSalonsByUserId,
   getAnalysisByNameAndMonthAtYear,
+  getTotalSuccessOrders,
 };

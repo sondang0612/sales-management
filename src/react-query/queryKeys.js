@@ -6,6 +6,7 @@ const queryKeys = {
   useSalonsByUserId: "useSalonsByUserId",
   useSalonReportsHistory: "useSalonReportsHistory",
   useSalonAnalysisByNameAndMonthAtYear: "useSalonAnalysisByNameAndMonthAtYear",
+  useCountSuccessOrderByUserId: "useCountSuccessOrderByUserId",
 };
 
 export default queryKeys;

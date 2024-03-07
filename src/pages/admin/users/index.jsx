@@ -7,6 +7,7 @@ import { Select, Table } from "antd/lib/index";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import React from "react";
+import CountSuccessOrder from "@/src/components/CountSuccessOrder";
 const columns = [
   {
     title: "Tên",
@@ -25,6 +26,7 @@ const columns = [
     title: "Số lượng ra đơn",
     dataIndex: "countOrders",
     key: "countOrders",
+    render: (_, record) => <CountSuccessOrder userId={record?.key} />,
   },
   {
     title: "Ngày tạo Tài khoản",
