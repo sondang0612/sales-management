@@ -5,15 +5,23 @@ import pathNames from "../constant/pathNames";
 
 export default function Home() {
   const router = useRouter();
+  const [showLogin, setShowLogin] = React.useState(false);
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       router.replace(pathNames.USER_CREATE_REPORT);
     }
   }, [router]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setShowLogin(true);
+    }, 1000);
+  }, []);
+
   return (
-    <div className="h-screen bg-[#f2f2f2] flex items-center justify-center">
-      <LoginForm />
+    <div className="h-screen bg-image flex items-center justify-center">
+      {showLogin && <LoginForm />}
     </div>
   );
 }

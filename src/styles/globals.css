@@ -43,3 +43,6 @@ a {
 .RCM_two_level_table1 .ant-table-thead th.ant-table-column-sort {
   background-color: unset;
 }
+.bg-image {
+  background: url("/images/logo.jpg") center / cover no-repeat;
+}

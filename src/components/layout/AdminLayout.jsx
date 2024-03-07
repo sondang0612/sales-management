@@ -28,7 +28,11 @@ const AdminLayout = ({ title, children }) => {
             </div>
           </Col>
           <Col flex="1 1 0%">
-            <h3 className=" px-4 mb-7 text-2xl text-center">{title}</h3>
+            {typeof title === "string" ? (
+              <h3 className="px-4 mb-7 text-2xl text-center">{title}</h3>
+            ) : (
+              title
+            )}
             {children}
           </Col>
         </Row>
