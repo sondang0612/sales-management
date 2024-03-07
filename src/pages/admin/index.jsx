@@ -11,7 +11,7 @@ export default function Admin() {
   const [password, setPassword] = React.useState("");
   const router = useRouter();
 
-  const { mutate: login } = useLoginAdmin({
+  const { mutate: login, isPending: isPendingLoginAdmin } = useLoginAdmin({
     onSuccess: () => {
       router.replace(pathNames.ADMIN_USERS);
     },
@@ -45,7 +45,7 @@ export default function Admin() {
               onChange={(e) => setPhone(e.target.value)}
               fieldName="phone"
               value={phone}
-              placeholder="SĐT"
+              placeholder="SĐT/Tên"
             />
             <InputForm
               onChange={(e) => setPassword(e.target.value)}
@@ -60,6 +60,7 @@ export default function Admin() {
               bgColor="bg-blue-500"
               hover="hover:bg-black"
               onClick={onSubmit}
+              disabled={isPendingLoginAdmin}
             />
           </div>
         </div>
