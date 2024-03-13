@@ -148,6 +148,7 @@ const Page = () => {
     setUploading(true);
     if (localImages.length === 0) {
       toast.error("Vui lòng chọn ảnh kệ");
+      setUploading(false);
       return undefined;
     }
     const images = await uploadImages(
