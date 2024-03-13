@@ -19,11 +19,9 @@ const salonReportSchema = new Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
-      required: true,
     },
     content: {
       type: String,

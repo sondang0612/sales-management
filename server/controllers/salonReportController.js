@@ -6,9 +6,9 @@ import { SIZE } from "@/src/constant";
 const create = catchAsync(async (req, res) => {
   const user = req.user;
   const form = req.body;
-
   await SalonReport.create({ ...form, user });
-  res.status(200).json({ msg: "Đã lưu" });
+
+  return res.status(200).json({ msg: "Đã lưu" });
 });
 
 const getMySalons = catchAsync(async (req, res) => {

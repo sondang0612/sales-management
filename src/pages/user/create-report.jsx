@@ -33,6 +33,9 @@ const Page = () => {
       setLocalImages([]);
       setUploading(false);
     },
+    onError: () => {
+      setUploading(false);
+    },
   });
 
   const arrayFormAccount = React.useMemo(
@@ -77,7 +80,7 @@ const Page = () => {
       {
         label: "Số điện thoại",
         name: "phone",
-        rules: [{ required: true }],
+        rules: [{ required: !isOldSalon }],
         labelAlign: "left",
         className: "",
         component: <Input className="rounded-md" disabled={isOldSalon} />,
@@ -85,7 +88,7 @@ const Page = () => {
       {
         label: "Địa chỉ",
         name: "address",
-        rules: [{ required: true }],
+        rules: [{ required: !isOldSalon }],
         labelAlign: "left",
         className: "",
         component: <Input className="rounded-md" disabled={isOldSalon} />,

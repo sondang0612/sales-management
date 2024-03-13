@@ -7,7 +7,7 @@ const createSalon = async (form) => {
   return res.data;
 };
 
-const useCreateSalonReport = ({ onSuccess }) => {
+const useCreateSalonReport = ({ onSuccess, onError }) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (form) => createSalon(form),
@@ -18,6 +18,10 @@ const useCreateSalonReport = ({ onSuccess }) => {
       queryClient.invalidateQueries(queryKeys.useSalonsByUserId);
       toast.success(data?.msg);
       onSuccess();
+    },
+    onError: () => {
+      toast.error("Lỗi từ server");
+      onError && onError();
     },
   });
 };
